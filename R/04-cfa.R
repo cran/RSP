@@ -51,126 +51,194 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
     useShinyjs(),
 
+
+    # setBackgroundColor(
+    #   color = c("white", "gray"),
+    #   gradient = "linear",
+    #   direction = c("bottom", "right")
+    # ),
+    #
+
+
+    uiOutput("cols"),
+
     ####################################################################################
     tags$head(tags$style(
       type="text/css",
-      "#image0 img {max-width: 100%; width: auto; height: 100%; align: center}"
+      "#image0 img {max-width: 100%; width: auto; height: 100%; align: center}
+
+
+      table,img, .tippy-content, textarea{ border-collapse: collapse;
+
+  border-radius: 1em;
+
+  overflow: hidden;}
+
+  th, td {
+
+  padding: 1em;
+
+  background: #ddd;
+
+  border-bottom: 2px solid white;
+
+  border-top: 2px solid white;
+
+  }
+
+    #tepe{
+  border-bottom: 3px solid black;
+  }
+
+
+
+
+      "
+
     )),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image1 img {max-width: 100%; width: auto; height: 50%; align: center}"
-    )),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image2 img {max-width: 100%; width: auto; height: 50%; align: center}"
-    )),
+  tags$head(tags$style(
+    type="text/css",
+    "#imagex img {max-width: 100%; width: auto; height: 50%; align: center}"
+  )),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image3 img {max-width: 100%; width: auto; height: 50%; align: center}"
-    )),
+  tags$head(tags$style(
+    type="text/css",
+    "#image1 img {max-width: 100%; width: auto; height: 50%; align: center}"
+  )),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image3.1 img {max-width: 100%; width: auto; height: 100%; align: center}"
-    )),
+  tags$head(tags$style(
+    type="text/css",
+    "#image2 img {max-width: 100%; width: auto; height: 50%; align: center}"
+  )),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image4 img {max-width: 100%; width: auto; height: 100%; align: center}"
-    )),
+  tags$head(tags$style(
+    type="text/css",
+    "#image3 img {max-width: 100%; width: auto; height: 50%; align: center}"
+  )),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image5 img {max-width: 100%; width: auto; height: 100%; align: center}"
-    )),
+  tags$head(tags$style(
+    type="text/css",
+    "#image3.1 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image6 img {max-width: 100%; width: auto; height: 100%; align: center}"
-    )),
+  tags$head(tags$style(
+    type="text/css",
+    "#image4 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
 
-    #######################################################################
+  tags$head(tags$style(
+    type="text/css",
+    "#image5 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
+
+  tags$head(tags$style(
+    type="text/css",
+    "#image6 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
+
+  #######################################################################
 
 
-    tags$style(HTML("#a{color:darkblue; font-family:Lucida Arial ;font-size: 16px;
+  tags$style(HTML("#a{color:black; font-family:Lucida Arial ;font-size: 16px;
              font-style: oblique;text-align:center}")), #tabs#
 
-    tags$style(HTML("#ab{color:darkblue; font-family:Lucida Arial ;font-size: 20px;
+  tags$style(HTML("#ab{color:black; font-family:Lucida Arial ;font-size: 20px;
              font-style: oblique;text-align:center}")), # widgets#
 
-    tags$style(HTML("#b{color:darkblue; font-family: cursive;font-size: 15px;
+  tags$style(HTML("#b{color:black; font-family: cursive;font-size: 15px;
             font-style: oblique;text-align:center}")), # download #
 
-    ########################################################################3
-
-    ################ POPUP ################
-    shinyBS::bsTooltip(
-      id = "type",
-      title = "Make sure you choose the data type correctly!",
-      placement = "right",
-      trigger = "hover"
-    ),
-    shinyBS::bsTooltip(
-      id = "type2",
-      title = "Make sure you choose the file format correctly!",
-      placement = "right",
-      trigger = "hover"
-    ),
-    shinyBS::bsTooltip(
-      id = "fmodel",
-      title = "Write syntax according to the example above.",
-      placement = "right",
-      trigger = "hover"
-    ),
-    shinyBS::bsTooltip(
-      id = "ozet",
-      title = "Download model summary in excel format!",
-      placement = "right",
-      trigger = "hover"
-    ),
-    shinyBS::bsTooltip(
-      id = "modIndis",
-      title = "Download modification indexes in excel format!",
-      placement = "right",
-      trigger = "hover"
-    ),
-    shinyBS::bsTooltip(
-      id = "fit",
-      title = "You can download all fit indexes from the output tab!",
-      placement = "top",
-      trigger = "hover"
-    ),
-
-    #titlePanel("CONFIRMATORY FACTOR ANALYSIS (CFA)"),
-
-
-    h1(id="title", "CONFIRMATORY FACTOR ANALYSIS (CFA)"),
-    tags$style(HTML("#title{color: blue; font-family: cursive;font-size:30px;
-            font-style: oblique;text-align:left}")),
+  tags$style(HTML("#b{color:black; font-family: cursive;font-size: 15px;
+            font-style: oblique;text-align:center}")), # download #
 
 
 
-    sidebarPanel(
-      conditionalPanel(
 
-        ## PANEL 1 ##
 
-        condition = "input.panel==0",
+  ########################################################################3
 
-        shiny::img(src = "img/rsp2.png", width = "97%"),
-        tags$head(
-          tags$script(HTML(js))
-        ),
-        br(),
-        br(),
-        br(),
-        textOutput("browser"),
-        tags$head(
-          tags$style(
-            "#browser{
+  ################ POPUP ################
+  shinyBS::bsTooltip(
+    id = "type",
+    title = "Make sure you choose the data type correctly!",
+    placement = "right",
+    trigger = "hover"
+  ),
+  shinyBS::bsTooltip(
+    id = "type2",
+    title = "Make sure you choose the file format correctly!",
+    placement = "right",
+    trigger = "hover"
+  ),
+  shinyBS::bsTooltip(
+    id = "fmodel",
+    title = "Write syntax according to the example above.",
+    placement = "right",
+    trigger = "hover"
+  ),
+  shinyBS::bsTooltip(
+    id = "ozet",
+    title = "Download model summary in excel format!",
+    placement = "right",
+    trigger = "hover"
+  ),
+  shinyBS::bsTooltip(
+    id = "modIndis",
+    title = "Download modification indexes in excel format!",
+    placement = "right",
+    trigger = "hover"
+  ),
+  shinyBS::bsTooltip(
+    id = "fit",
+    title = "You can download all fit indexes from the output tab!",
+    placement = "top",
+    trigger = "hover"
+  ),
+
+  #titlePanel("CONFIRMATORY FACTOR ANALYSIS (CFA)"),
+
+  div(id = "tepe",
+      fluidRow(
+
+        column(6,
+
+               h1(id="title", "CONFIRMATORY FACTOR ANALYSIS (CFA)"),
+               tags$style(HTML("#title{color: black; font-family: 'Helvetica Neue', 'Lucida Grande', Helvetica, Arial, sans-serif;font-size:30px;
+            font-style: oblique;text-align:left}"))
+
+        )  ,
+
+        column(6,
+               h1(id="title2", "RSP PACKAGE  - CRAN"),
+               tags$style(HTML("#title2{color: black; font-family: 'Helvetica Neue', 'Lucida Grande', Helvetica, Arial, sans-serif;font-size:15px;
+            font-style: oblique;text-align:right}"))
+
+            # imageOutput("imagex",width = "15%", height = "30px", inline = TRUE),
+
+        )
+
+      )), # close fluidrow
+
+  sidebarPanel(
+    conditionalPanel(
+
+      ## PANEL 1 ##
+
+      condition = "input.panel==0",
+
+      shiny::img(src = "img/rsp2.png", width = "97%"),
+
+      tags$head(
+        tags$script(HTML(js))
+      ),
+      # br(),
+      # br(),
+      textOutput("browser"),
+      tags$head(
+        tags$style(
+          "#browser{
                        color: darkblue;
                        font-size: 25px;
                        font-family: cursive;
@@ -178,195 +246,273 @@ $(document).on('shiny:sessioninitialized', function(event) {
                        text-align:center;
                        letter-spacing:1px;
                        }"
-          )
+        )
+      ),
+      ####################################################################
+      #imageOutput("image1",width = "15%", height = "30px", inline = TRUE),
+      ####################################################################
+
+      br(),
+      br(),
+
+      shinyWidgets::spectrumInput(   # RENK PALET WİDGET
+        inputId = "myColor",
+        label = "CHANGE THE COLOR OF THE THEME:",
+        choices = list(
+          list('gray', 'white', 'blanchedalmond', 'steelblue', 'forestgreen'),
+          as.list(brewer_pal(palette = "Blues")(9)),
+          as.list(brewer_pal(palette = "Greens")(9)),
+          as.list(brewer_pal(palette = "Spectral")(11)),
+          as.list(brewer_pal(palette = "Dark2")(8))
         ),
-        ####################################################################
-        # imageOutput("image1",width = "15%", height = "30px", inline = TRUE)
-        ####################################################################
+        options = list(`toggle-palette-more-text` = "Show more")
       ),
 
-      ## PANEL 2 ##
 
-      conditionalPanel(
 
-        condition = "input.panel==1",
-        shiny::img(src = "img/rsp2.png", width = "97%"),
 
-        ######################################################################
-        # imageOutput("image2",width = "15%", height = "30px", inline = TRUE),
-        #####################################################################
+    ),
 
-        radioButtons(
-          "type",
-          h3(id="ab","Select the Data Type"),
+    ## PANEL 2 ##
 
-          choices = list("Polytomous (Likert etc.)" = 1, "1-0 " = 2),
-          selected = 1
+    conditionalPanel(
+
+      condition = "input.panel==1",
+      shiny::img(src = "img/rsp2.png", width = "97%"),
+
+      ######################################################################
+      #imageOutput("image2",width = "15%", height = "30px", inline = TRUE),
+      #####################################################################
+
+
+      # prettyRadioButtons(
+      #   inputId = "type",
+      #   label = h3(id="ab","Select Data Type"),
+      #   choices = c("Polytomous (Likert etc..)"=1,
+      #               "1-0"=2),
+      #
+      #   shape = "curve",animation = "rotate" , inline = FALSE,
+      #   bigger = TRUE, status = "primary", outline = TRUE,
+      #   fill = FALSE, width = "500px"
+      # ),
+
+      shinyWidgets::radioGroupButtons(
+        inputId = "type",
+        label =  h3(id="ab","Select Data Type"),
+        choices = c("Polytomous (Likert etc..)"=1,
+                    "1-0"=2),
+
+        justified = TRUE,
+        checkIcon = list(
+          yes = icon("ok",
+                     lib = "glyphicon"))),
+
+
+      shinyWidgets::pickerInput(
+        inputId = "type2",
+        label = h3(id="ab","Select File Format"),
+        choices = list(
+          "CSV - Semicolon  Separated  Excel" = 1,
+          "CSV - Comma  Separated  Excel" = 2,
+          "SAV - SPSS" = 3,
+          "XLSX - Excel"=4
         ),
-        # BUNA GEREK VAR MI "YUKARIDAKİ RADIO BUTTON"????? DEHA
-        selectInput(
-          "type2",
-          h3(id="ab", "Select File Format"),
-          choices = list(
-            "CSV - Semicolon Separated  Excel" = 1,
-            "CSV - Comma  Separated  Excel" = 2,
-            "SAV - SPSS" = 3
-          ),
-          selected = 3
-        ),
-
-
-        uiOutput("uiHeader"),
-
-        fileInput("data1",
-                  h3(id="ab","Uplad Data File")
-
-        ),
-        gt::gt_output("dat2"),
-
-      ),
-
-      ## PANEL 3 ##
-
-      conditionalPanel(
-
-        condition = "input.panel==2",
-
-        br(),
-
-        shiny::img(src = "img/cfa1.gif", width = "97%"),
-
-
-        ###################################################################
-        # imageOutput("image3",width = "15%", height = "30px", inline = TRUE),
-        ###################################################################
-
-
-        br(),
-
-        textAreaInput("fmodel", h3(id="ab","Please Write Your Model"),
-                      "",
-                      height = "300px"),
-        selectInput(
-          "type3",
-          h3(id="ab","Selecet Method Used for Prediction"),
-
-          choices = list("MLO" = "ML", "GLS" = "GLS",
-                         "WLS" = "WLS","DWLS"= "DWLS" ,
-                         "ULS"= "ULS", "MLR" = "MLR"),
-          selected = 1
-        ),
-        actionButton("send", h3(id="ab","Apply")),
-
-
-        fluidRow(
-
-          column(
-
-            width = 6,
-
-            selectInput(
-              "tree",
-
-              h3(id="ab","Graph Type"),
-
-              choices = list("Tree_1" = "tree",
-
-                             "Tree_2" = "tree2",
-
-                             "Circle_1"="circle",
-
-                             "Circle_2"="circle2",
-
-                             "Spring"="spring"),
-
-              selected = "tree2"
-            ) ),
-
-          column(
-            width = 6,
-            selectInput(
-              "colour",
-              h3(id="ab","Graph Colour"),
-
-              choices = list("Black" = 1,
-
-                             "Red" = 2,
-
-                             "Green"=3,
-
-                             "Blue"=4
-
-              ),
-
-              selected = 4
-            ) )
-        ),
-
-        plotOutput("path")
+        selected = 3,
+        options =  shinyWidgets::pickerOptions(showTick=TRUE,
+        ),#style = "btn-primary"),
 
       ),
 
-      ## PANEL 4 ##
+      uiOutput("uiHeader"),
 
-      conditionalPanel(
+      # fileInput("data1",
+      #           h3(id="ab","Uplad Data File")),
 
-        condition = "input.panel==3",
+      # fileInput(
+      #   "data1",
+      #   h3(id="ab","Uplad Data File",icon("paper-plane"))
+      # ),
 
-        br(),
-        shiny::img(src = "img/rsp2.png", width = "97%"),
+      fileInput(
+        "data1",
+        h3(id="ab","Uplad Data File",icon("paper-plane"))
+      ),
 
 
-        ####################################################################
-        # imageOutput("image4",width = "15%", height = "30px", inline = TRUE),
-        ####################################################################
+      gt::gt_output("dat2"),
 
-        br(),
+    ),
 
-        ###################################################################
-        # imageOutput("image5",width = "15%", height = "30px", inline = TRUE),
-        ###################################################################
+    ## PANEL 3 ##
 
-        shiny::img(src = "img/download.gif", width = "97%"),
-      )
+    conditionalPanel(
+
+      condition = "input.panel==2",
+
+      br(),
+
+      uiOutput("imageGif"),
+
+
+      ###################################################################
+      #imageOutput("image3",width = "15%", height = "30px", inline = TRUE),
+      ###################################################################
+
+
+
+      shinyWidgets::switchInput(
+        inputId = "gifvid",
+        label = "Watch Tutorial!",
+        labelWidth = "100px",
+        width = "200px"
+      ),
+
+
+      # withLoader(imageOutput("image3",width = "150%", height = "100px", inline = TRUE),
+      #            type = "html", loader = "loader1"),
+
+
+      br(),
+
+      textAreaInput("fmodel", h3(id="ab","Please Write Your Model"),
+                    "",
+                    height = "300px"),
+
+
+
+      # selectInput(
+      #   "type3",
+      #   h3(id="ab","Select Method Used for Prediction"),
+      #
+      #   choices = list("MLO" = "ML", "GLS" = "GLS",
+      #                  "WLS" = "WLS","DWLS"= "DWLS" ,
+      #                  "ULS"= "ULS", "MLR" = "MLR"),
+      #   selected = 1
+      # ),
+
+
+
+      shinyWidgets::pickerInput     (
+        "type3",
+        h3(id="ab","Select Method Used for Prediction"),
+
+        choices = list("MLO" = "ML", "GLS" = "GLS",
+                       "WLS" = "WLS","DWLS"= "DWLS" ,
+                       "ULS"= "ULS", "MLR" = "MLR"),
+        selected = 1,
+
+        options =  shinyWidgets::pickerOptions(showTick=TRUE,
+        )),
+
+      shinyWidgets::actionBttn(
+        inputId = "send",
+        label = "APPLY",
+        style = "gradient",
+        color = "default"
+
+      ),
+
+      # actionButton("send", h3(id="ab","Apply")),
+
+
+      fluidRow(
+
+        column(
+
+          width = 6,
+
+          selectInput(
+            "tree",
+
+            h3(id="ab","Graph Type"),
+
+            choices = list("Tree_1" = "tree",
+
+                           "Tree_2" = "tree2",
+
+                           "Circle_1"="circle",
+
+                           "Circle_2"="circle2",
+
+                           "Spring"="spring"),
+
+            selected = "tree2"
+          ) ),
+
+        column(
+          width = 6,
+          selectInput(
+            "colour",
+            h3(id="ab","Graph Colour"),
+
+            choices = list("Black" = 1,
+
+                           "Red" = 2,
+
+                           "Green"=3,
+
+                           "Blue"=4
+
+            ),
+
+            selected = 4
+          ) )
+      ),
+
+      plotOutput("path")
+
+
+
+
+
+
+
+
+
+
+
 
 
     ),
 
 
 
-    ## MAIN PANEL
-
-    mainPanel(
-      tabsetPanel(
-        id = "panel",
-
-        tabPanel(
-
-          h4(id="a", "INTRODUCTION"),
+  ),  # close sidebar panel
 
 
-          value = 0,
-          br(),
-          br(),
-          br(),
-          fluidRow(
 
-            column(12, align="center",
-                   shiny::img(src = "img/rsp2.png", width = "97%"),
+  ## MAIN PANEL
 
-                   ###################################################################
-                   # imageOutput("image0",width = "75%", height = "50px", inline = TRUE),
-                   ###################################################################
+  mainPanel(
+    tabsetPanel(
+      id = "panel",
 
-            ))),
-        tabPanel(
-          h4(id="a","DATA UPLOAD"),
-          value = 1,
-          textOutput("text1"),
-          tags$head(
-            tags$style(
-              "#text1{
+      tabPanel(
+
+        h4(id="a", "INTRODUCTION"),
+
+
+        value = 0,
+        br(),
+        br(),
+        br(),
+        fluidRow(
+
+          column(12, align="center",
+                 shiny::img(src = "img/rsp2.png", width = "97%"),
+
+                 ###################################################################
+                 #imageOutput("image0",width = "75%", height = "50px", inline = TRUE),
+                 ###################################################################
+
+          ))),
+      tabPanel(
+        h4(id="a","DATA UPLOAD"),
+        value = 1,
+        textOutput("text1"),
+        tags$head(
+          tags$style(
+            "#text1{
             color: darkblue;
             font-size: 25px;
             font-family: cursive;
@@ -374,85 +520,112 @@ $(document).on('shiny:sessioninitialized', function(event) {
             text-align:center;
             letter-spacing:1px;
             }"
-            )
-          ),
-          br(),
-
-          DT::dataTableOutput("dat1"),
-
-
-          gt::gt_output("mvn1"),
-
-          gt::gt_output("mvn4"),
-          br(),
-
-        ),
-
-        tabPanel(
-          h4(id="a","STRUCTURAL MODEL"),
-          value = 2,
-          textOutput("text2"),
-          tags$head(
-            tags$style(
-              "#text2{
-            color: darkblue;
-            font-size: 25px;
-            font-family: cursive;
-            font-style: oblique;
-            text-align:center;
-            letter-spacing:1px;
-            }"
-            )
-          ),
-          uiOutput("cfaResult"),
-          DT::dataTableOutput("cfaDT"),
-          uiOutput("fitResult"),
-          DT::dataTableOutput("fit"),
-          uiOutput("modificationIndex"),
-          DT::dataTableOutput("modification")
-
-        ),
-
-
-        tabPanel(
-
-          h4(id="a","OUTPUT"),
-
-          value = 3,
-
-          br(),
-          textOutput("text3"),
-
-          tags$head(
-            tags$style(
-              "#text3{
-            color: darkblue;
-            font-size: 25px;
-            font-family: cursive;
-            font-style: oblique;
-            text-align:center;
-            letter-spacing:1px;
-            }"
-            )
-          ),
-          br(),
-          fluidRow(
-            column(3,
-                   downloadButton("ozet", h3(id="b", "Download Model Summary"))),
-            column(3,
-                   downloadButton("modIndis", h3(id="b", "Download Modification Indexes"))),
-            column(3, downloadButton("dlPath", h3(id="b", "Download Path Diagram"))),
-            column(3, downloadButton("dlFit", h3(id="b", "Download All Fit Indexes")))
           )
-        )
+        ),
+        br(),
 
-      )
+        DT::dataTableOutput("dat1"),
+
+
+        gt::gt_output("mvn1"),
+
+        br(),
+
+        gt::gt_output("mvn4"),
+        br(),
+
+      ),
+
+
+
+      ###  MAIN PANEL 3
+
+      tabPanel(
+        h4(id="a","STRUCTURAL MODEL"),
+        value = 2,
+        textOutput("text2"),
+        tags$head(
+          tags$style(
+            "#text2{
+            color: darkblue;
+            font-size: 25px;
+            font-family: cursive;
+            font-style: oblique;
+            text-align:center;
+            letter-spacing:1px;
+            }"
+          )
+        ),
+        uiOutput("cfaResult"),
+        DT::dataTableOutput("cfaDT"),
+
+
+
+
+        uiOutput("fitResult"),
+
+
+
+        DT::dataTableOutput("fit"),
+
+
+
+        br(),
+
+
+
+        ### fit index
+
+        uiOutput("modificationIndex"),
+
+        br(),
+
+        uiOutput("foraction"),
+
+
+
+
+        uiOutput("foraction2")
+
+
+
+      ),  # close tabpanel
+
+
     )
+  )
   )
 
   ### SERVER ###
 
   server <- function(input, output, session) {
+
+
+    #
+    # observeEvent(input$data1, {
+    #   show_alert(
+    #     title = "Success !!",
+    #     text = "DATA WAS UPLOADED",
+    #     type = "success"
+    #   )
+    # })
+
+
+    observeEvent(input$myColor,{
+
+      output$cols<- renderUI({   # WIDET RENDER UI RENK DEĞİŞİMİ
+
+        bbb<-input$myColor
+
+        shinyWidgets::setBackgroundColor(
+          color = c("white", bbb),
+          gradient = "linear",
+          direction = c("bottom", "right")
+        )})
+    })
+
+
+
 
     output$browser <- renderText({
       req(input$myBrowser)
@@ -464,6 +637,18 @@ $(document).on('shiny:sessioninitialized', function(event) {
       # contains the value returned by the JS function
     })
     ###########################################################################
+
+
+    #################
+
+    output$imagex <- renderImage({
+      resim2 <- tempfile(fileext = '.png')
+      list(src = "rspx.png", contentType = "image/png")
+    },
+    deleteFile = FALSE)
+    #
+    ###########################
+
 
     output$image0<- renderImage({
       resim2 <- tempfile(fileext = '.png')
@@ -486,11 +671,25 @@ $(document).on('shiny:sessioninitialized', function(event) {
     deleteFile = FALSE)
 
 
-    output$image3<- renderImage({
-      resim2 <- tempfile(fileext = '.gif')
-      list(src = "cfa1.gif", contentType = "image/gif")
-    },
-    deleteFile = FALSE)
+
+
+
+    # output$image3<- renderImage({
+    #
+    #   req (input$data1)
+    #
+    #
+    #   req( input$gifvid== TRUE)
+    #   resim2 <- tempfile(fileext = '.gif')
+    #   list(src = "cfa1.gif", contentType = "image/gif")
+    # },
+    # deleteFile = FALSE)
+
+    output$imageGif <- renderUI({
+      req(input$data1)
+      req(input$gifvid == TRUE)
+      shiny::img(src="https://shiny.eptlab.com/RSPEN/cfa/img/cfa1.gif", width = "97%")
+    })
 
 
 
@@ -507,7 +706,6 @@ $(document).on('shiny:sessioninitialized', function(event) {
     deleteFile = FALSE)
 
     ###########################################################################
-
 
     output$text1<- renderText({
 
@@ -529,7 +727,17 @@ $(document).on('shiny:sessioninitialized', function(event) {
       if(input$type2 == 3){
         NULL
       } else {
-        checkboxInput("header", h3(id="ab","The first line is the variable name"), value = TRUE)}
+
+        shinyWidgets::materialSwitch(
+          inputId = "header",
+          label =   h4("The first line is the variable name"),
+          value = TRUE,
+          status = "primary"
+        )
+
+      }
+
+
     })
 
 
@@ -538,27 +746,44 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
     data <- reactive({
       veri <- input$data1
-      if (is.null(veri)){
+      if (is.null(veri)) {
         return(paste0("PLEASE UPLOAD DATA"))
-      } else if (input$type2==1){
-        if(tools::file_ext(veri$datapath) != "csv"){
-          data.frame(uyari = "PLEASE SELECT THE CORRECT FILE FORMAT")
+
+      } else if (input$type2 == 1) {
+        if (tools::file_ext(veri$datapath) != "csv") {
+          data.frame(warning = "PLEASE SELECT THE CORRECT FILE FORMAT")
         } else {
-          utils::read.csv2(veri$datapath, header=isTRUE(input$header), sep = ";")
+          utils::read.csv2(veri$datapath,
+                           header = isTRUE(input$header),
+                           sep = ";"
+          )
         }
-      } else if(input$type2 == 2){
-        if(tools::file_ext(veri$datapath) != "csv"){
-          data.frame(uyari = "PLEASE SELECT THE CORRECT FILE FORMAT")
+      } else if (input$type2 == 2) {
+        if (tools::file_ext(veri$datapath) != "csv") {
+          data.frame(warning = "PLEASE SELECT THE CORRECT FILE FORMAT")
         } else {
-          utils::read.csv2(veri$datapath, header = isTRUE(input$header), sep = ",")
+          utils::read.csv2(veri$datapath,
+                           header = isTRUE(input$header),
+                           sep = ","
+          )
         }
-      } else if(input$type2 == 3) {
-        if(tools::file_ext(veri$datapath) != "sav"){
-          data.frame(uyari = "PLEASE SELECT THE CORRECT FILE FORMAT")
+      } else if (input$type2 == 3) {
+        if (tools::file_ext(veri$datapath) != "sav") {
+          data.frame(warning = "PLEASE SELECT THE CORRECT FILE FORMAT")
         } else {
-          read.spss(veri$datapath, to.data.frame = TRUE, use.value.labels = FALSE)
-        }
-      }
+          read.spss(veri$datapath,
+                    to.data.frame = TRUE,
+                    use.value.labels = FALSE
+          ) }
+      } else if(input$type2==4) {
+        if (tools::file_ext(veri$datapath) != "xlsx") {
+          data.frame(warning = "PLEASE SELECT THE CORRECT FILE FORMAT")
+        } else {
+          xlsx::read.xlsx(veri$datapath, 1, header = isTRUE(input$header)
+          )
+
+        } }
+
     })
 
     data1 <- reactive({
@@ -580,13 +805,13 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
 
       output$cfaResult <- renderUI({
-        h3(id="ab","CFA Results")
+        h3(id="ab","MODEL SUMMARY")
       })
       output$fitResult <- renderUI({
-        h3(id="ab","Fit Indexes")
+        h3(id="ab","FIT INDEXES")
       })
       output$modificationIndex <- renderUI({
-        h3(id="ab","Modification Indexes")
+        h3(id="ab","DETAILED OUTPUTS")
       })
 
       model <- reactive({
@@ -607,8 +832,8 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
         CFA_ENV$CFA1 <- Cfa()
         Cfa <- CFA_ENV$CFA1
-           # data <- data()
-           # colnames(data) <- paste0("i", c(1:ncol(data)))
+        # data <- data()
+        # colnames(data) <- paste0("i", c(1:ncol(data)))
 
         cfaSum <- lavaan::summary(Cfa, standardized = TRUE)
         cfaSum2 <- data.frame(first = cfaSum$pe$lhs,
@@ -666,38 +891,105 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
       output$fit <- DT::renderDataTable({
 
-         Cfa<- Cfa()
+        Cfa<- Cfa()
 
         indexFit <- fitMeasures(Cfa)
-        indexFitx <- cbind(indexFit[["chisq"]], indexFit[["df"]],
-                           indexFit[["pvalue"]], indexFit[["rmsea"]],
-                           indexFit[["cfi"]], indexFit[["agfi"]],
-                           indexFit[["nnfi"]], indexFit["srmr"])
-        colnames(indexFitx) <- c("Chi-square", "df", "p", "RMSEA",
-                                 "CFI", "AGFI", "NNFI(TLI)", "SRMR")
-        rownames(indexFitx) <- "Value"
-        paste0("Fit Indexes")
-        fitSumDT <- print(round(indexFitx, 3))
+        if(input$type3 == "MLR"){
+          indexFitx <- cbind(indexFit[["chisq"]], indexFit[["df"]],
+                             indexFit[["pvalue"]], indexFit[["rmsea.robust"]],
+                             indexFit[["cfi.robust"]], indexFit[["agfi"]],
+                             indexFit[["tli.robust"]], indexFit["srmr"])
+          colnames(indexFitx) <- c("Chi-square", "df", "p", "RMSEA (Robust)",
+                                   "CFI (Robust)", "AGFI", "NNFI (TLI) (Robust)", "SRMR")
+
+
+          rownames(indexFitx) <- "Value"
+          paste0("Fit Indexes")
+          fitSumDT <- print(round(indexFitx, 3))
+          backgroundColor <- sample(c("tomato1", "turquise", "skyblue",
+                                      "aquamarine", "lightblue", "gray"), 1)
+          datatable(fitSumDT) %>% formatStyle(colnames(fitSumDT),
+                                              backgroundColor = backgroundColor) %>%
+            formatStyle('RMSEA (Robust)',
+                        backgroundColor = DT::styleInterval(c(0.05,0.08),
+                                                            c("green", "orange", "red"))) %>%
+            formatStyle('CFI (Robust)',
+                        backgroundColor = DT::styleInterval(c(0.90,0.95),
+                                                            c("red", "orange", "green"))) %>%
+            formatStyle('AGFI',
+                        backgroundColor = DT::styleInterval(c(0.90,0.95),
+                                                            c("red", "orange", "green"))) %>%
+            formatStyle('NNFI (TLI) (Robust)',
+                        backgroundColor = DT::styleInterval(c(0.90, 0.95),
+                                                            c("red", "orange", "green"))) %>%
+            formatStyle('SRMR',
+                        backgroundColor = DT::styleInterval(c(0.05,0.08),
+
+                                                            c("green", "orange", "red")))
+        } else {
+          indexFitx <- cbind(indexFit[["chisq"]], indexFit[["df"]],
+                             indexFit[["pvalue"]], indexFit[["rmsea"]],
+                             indexFit[["cfi"]], indexFit[["agfi"]],
+                             indexFit[["nnfi"]], indexFit["srmr"])
+          colnames(indexFitx) <- c("Chi-square", "df", "p", "RMSEA",
+                                   "CFI", "AGFI", "NNFI(TLI)", "SRMR")
+
+
+          rownames(indexFitx) <- "Value"
+          paste0("Fit Indexes")
+          fitSumDT <- print(round(indexFitx, 3))
+          backgroundColor <- sample(c("tomato1", "turquise", "skyblue",
+                                      "aquamarine", "lightblue", "gray"), 1)
+          datatable(fitSumDT) %>% formatStyle(colnames(fitSumDT),
+                                              backgroundColor = backgroundColor) %>%
+            formatStyle('RMSEA',
+                        backgroundColor = DT::styleInterval(c(0.05,0.08),
+                                                            c("green", "orange", "red"))) %>%
+            formatStyle('CFI',
+                        backgroundColor = DT::styleInterval(c(0.90,0.95),
+                                                            c("red", "orange", "green"))) %>%
+            formatStyle('AGFI',
+                        backgroundColor = DT::styleInterval(c(0.90,0.95),
+                                                            c("red", "orange", "green"))) %>%
+            formatStyle('NNFI(TLI)',
+                        backgroundColor = DT::styleInterval(c(0.90, 0.95),
+                                                            c("red", "orange", "green"))) %>%
+            formatStyle('SRMR',
+                        backgroundColor = DT::styleInterval(c(0.05,0.08),
+
+                                                            c("green", "orange", "red")))
+        }
+
+      })
+
+
+
+      output$allfit1<- renderUI({
+
+        req(input$data1)
+
+        DT::DTOutput("allfit2")  })
+
+
+
+      output$allfit2<-DT::renderDT({
+
+        req(input$data1)
+
+        a<-lavaan:: fitMeasures(Cfa())
+
+        Values<-as.data.frame( round(a,3))
+
+        #a2<-  datatable(a1)
+
         backgroundColor <- sample(c("tomato1", "turquise", "skyblue",
                                     "aquamarine", "lightblue", "gray"), 1)
-        datatable(fitSumDT) %>% formatStyle(colnames(fitSumDT),
-                                            backgroundColor = backgroundColor) %>%
-          formatStyle('RMSEA',
-                      backgroundColor = DT::styleInterval(c(0.05,0.08),
-                                                          c("green", "orange", "red"))) %>%
-          formatStyle('CFI',
-                      backgroundColor = DT::styleInterval(c(0.90,0.95),
-                                                          c("red", "orange", "green"))) %>%
-          formatStyle('AGFI',
-                      backgroundColor = DT::styleInterval(c(0.90,0.95),
-                                                          c("red", "orange", "green"))) %>%
-          formatStyle('NNFI(TLI)',
-                      backgroundColor = DT::styleInterval(c(0.90, 0.95),
-                                                          c("red", "orange", "green"))) %>%
-          formatStyle('SRMR',
-                      backgroundColor = DT::styleInterval(c(0.05,0.08),
+        datatable(Values) %>% formatStyle(colnames(Values),
+                                          backgroundColor = "skyblue")
 
-                                                          c("green", "orange", "red")))
+
+        # return(Values)
+
       })
 
 
@@ -941,26 +1233,26 @@ $(document).on('shiny:sessioninitialized', function(event) {
         pdf(file)
         if(CFA_ENV$CFA1@pta$nvar[[1]] < 9){
           print(semPlot::semPaths(CFA_ENV$CFA1, whatLabels = "std",
-                         layout = input$tree, style = "lisrel", rotation = 1, sizeMan = 10,
-                         sizeLat = 10, sizeLat2 = 10, sizeInt = 10,
-                         nCharNodes = 3, nCharEdges = 3, edge.color = input$colour,
-                         inheritColor = FALSE, edge.label.cex = 1, width = 10, height = 20))
+                                  layout = input$tree, style = "lisrel", rotation = 1, sizeMan = 10,
+                                  sizeLat = 10, sizeLat2 = 10, sizeInt = 10,
+                                  nCharNodes = 3, nCharEdges = 3, edge.color = input$colour,
+                                  inheritColor = FALSE, edge.label.cex = 1, width = 10, height = 20))
         } else if(CFA_ENV$CFA1@pta$nvar[[1]] < 13) {
 
 
           print(semPlot::semPaths(CFA_ENV$CFA1, whatLabels = "std",
-                         layout = input$tree, style = "lisrel", rotation = 1, sizeMan = 7,
-                         sizeLat = 7, sizeLat2 = 7, sizeInt = 7,
-                         nCharNodes = 3, nCharEdges = 3, edge.color = input$colour,
-                         inheritColor = FALSE, edge.label.cex = 0.7, width = 10, height = 20))
+                                  layout = input$tree, style = "lisrel", rotation = 1, sizeMan = 7,
+                                  sizeLat = 7, sizeLat2 = 7, sizeInt = 7,
+                                  nCharNodes = 3, nCharEdges = 3, edge.color = input$colour,
+                                  inheritColor = FALSE, edge.label.cex = 0.7, width = 10, height = 20))
         } else {
 
 
           print(semPlot::semPaths(CFA_ENV$CFA1, whatLabels = "std",
-                         layout = input$tree, style = "lisrel", rotation = 1, sizeMan = 5,
-                         sizeLat = 5, sizeLat2 = 5, sizeInt = 5,
-                         nCharNodes = 3, nCharEdges = 3, edge.color = input$colour,
-                         inheritColor = FALSE, edge.label.cex = 0.3, width = 10, height = 20))
+                                  layout = input$tree, style = "lisrel", rotation = 1, sizeMan = 5,
+                                  sizeLat = 5, sizeLat2 = 5, sizeInt = 5,
+                                  nCharNodes = 3, nCharEdges = 3, edge.color = input$colour,
+                                  inheritColor = FALSE, edge.label.cex = 0.3, width = 10, height = 20))
         }
 
         dev.off()
@@ -979,6 +1271,188 @@ $(document).on('shiny:sessioninitialized', function(event) {
         utils::write.csv2(lavaan::fitMeasures(CFA_ENV$CFA1), file)
       }
     )
+
+
+
+    observeEvent(input$send,{
+
+      output$foraction<-renderUI({
+
+        # req(input$send==TRUE)
+
+
+        fluidRow(
+
+          column(4,
+
+
+                 shinyWidgets::dropMenu(
+
+
+
+                   padding = "20px",
+
+                   theme="light-border",
+
+                   placement = "top-start",
+
+
+                   shinyWidgets::actionBttn(
+                     inputId = "acb3",
+                     label = " Click To See All Fit Index",
+                     style = "gradient",
+                     color = "default",
+                     size = "lg"
+
+                   ),
+
+                   uiOutput("allfit1")
+
+                 )
+
+
+          ),
+
+
+
+          column( 4,
+
+                  shinyWidgets::dropMenu(
+
+                    padding = "20px",
+
+                    theme="light-border",
+
+                    placement = "top-start",
+
+
+                    shinyWidgets::actionBttn(
+                      inputId = "modif",
+                      label = "Click To See Modifications",
+                      style = "gradient",
+                      color = "default",
+                      size = "lg"
+
+                    ),
+
+                    DT::dataTableOutput("modification")
+
+                  )
+
+          ), #  close clomun 2
+
+          # close drop menu
+
+
+
+          column(4,
+
+                 shinyWidgets::dropMenu(
+
+                   padding = "40px",
+
+
+                   theme="light-border",
+
+                   placement = "top-start",
+
+
+                   shinyWidgets::actionBttn(
+                     inputId = "downs",
+                     label = "Download All Outputs",
+                     style = "gradient",
+                     color = "default",
+                     size = "lg"
+
+                   ),
+
+                   fluidRow(
+                     column(3,
+
+
+
+                            shinyWidgets::downloadBttn(
+                              "ozet",
+                              label = h5(id="dwn","Model Sum"),
+                              style = "jelly",
+                              color = "primary",
+                              size = "xs",
+                              block = FALSE,
+                              no_outline = TRUE,
+                              icon = shiny::icon("download")
+                            ),
+                     ),
+
+
+                     column(3,
+
+
+
+
+
+                            shinyWidgets::downloadBttn(
+                              "modIndis",
+                              label = h5(id="dwn", "Mod Index"),
+                              style = "jelly",
+                              color = "primary",
+                              size = "xs",
+                              block = FALSE,
+                              no_outline = TRUE,
+                              icon = shiny::icon("download")
+                            ),
+                     ),
+
+
+                     column(3,
+
+
+
+
+                            shinyWidgets::downloadBttn(
+                              "dlPath",
+                              label = h5(id="dwn", "Path Diag"),
+                              style = "jelly",
+                              color = "primary",
+                              size = "xs",
+                              block = FALSE,
+                              no_outline = TRUE,
+                              icon = shiny::icon("download")
+                            ),
+
+                     ),
+
+                     column(3,
+
+                            shinyWidgets::downloadBttn(
+                              "dlFit",
+                              label = h5(id="dwn", "Fit Index"),
+                              style = "jelly",
+                              color = "primary",
+                              size = "xs",
+                              block = FALSE,
+                              no_outline = TRUE,
+                              icon = shiny::icon("download")
+                            ),
+                     ),
+
+                     #
+                   ) # close fluidrow for downloads
+
+                 ) # close column before fluidrow in downloads
+
+          )   # close column 2
+
+
+
+        ) # close fldr
+
+
+      })  # close renderUI foraction
+
+
+    }) # observe event
+
+
     session$onSessionEnded(function() {
       stopApp()
     })

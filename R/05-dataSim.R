@@ -44,102 +44,166 @@ $(document).on('shiny:sessioninitialized', function(event) {
   ui <- fluidPage(
     useShinyjs(),
 
+    useShinyjs(),
+    theme = shinytheme("readable"),
+
+    uiOutput("cols"),
 
     ####################################################################################
     tags$head(tags$style(
       type="text/css",
-      "#image0 img {max-width: 100%; width: auto; height: 100%; align: center}"
+      "#image0 img {max-width: 100%; width: auto; height: 100%; align: center}
+
+
+        table,img, .tippy-content, textarea{ border-collapse: collapse;
+
+  border-radius: 1em;
+
+  overflow: hidden;}
+
+  th, td {
+
+  padding: 1em;
+
+  background: #ddd;
+
+  border-bottom: 2px solid white;
+
+  border-top: 2px solid white;
+
+}
+
+ #tepe{
+  border-bottom: 2px solid black;
+  }
+
+
+
+      "
     )),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image1 img {max-width: 100%; width: auto; height: 100%; align: center}"
-    )),
+tags$head(tags$style(
+  type="text/css",
+  "#image1 img {max-width: 100%; width: auto; height: 100%; align: center}"
+)),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image2 img {max-width: 100%; width: auto; height: 100%; align: center}"
-    )),
+tags$head(tags$style(
+  type="text/css",
+  "#image2 img {max-width: 100%; width: auto; height: 100%; align: center}"
+)),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image3 img {max-width: 100%; width: auto; height: 100%; align: center}"
-    )),
+tags$head(tags$style(
+  type="text/css",
+  "#image3 img {max-width: 100%; width: auto; height: 100%; align: center}"
+)),
 
-    tags$head(tags$style(
-      type="text/css",
-      "#image4 img {max-width: 100%; width: auto; height: 100%; align: center}"
-    )),
+tags$head(tags$style(
+  type="text/css",
+  "#image4 img {max-width: 100%; width: auto; height: 100%; align: center}"
+)),
 
 
 
-    ###################################################################################
+###################################################################################
 
-    tags$style(HTML("#a{color:darkblue; font-family:Lucida Arial ;font-size: 16px;
-             font-style: oblique;text-align:center}")), #tabs#
+tags$style(HTML("#a{color:black; font-family:Lucida Arial ;font-size: 20px;
+              font-style: oblique;text-align:center}")), #tabs#
 
-    tags$style(HTML("#ab{color:darkblue; font-family:Lucida Arial ;font-size: 20px;
+tags$style(HTML("#ab{color:black; font-family:Lucida Arial ;font-size: 20px;
              font-style: oblique;text-align:center}")), # widgets#
 
-    tags$style(HTML("#b{color:darkblue; font-family: cursive;font-size: 15px;
-            font-style: oblique;text-align:center}")), # download #
-    ###################################################################################3
+tags$style(HTML("#b{color:blcak; font-family: cursive;font-size: 15px;
+            font-style: oblique;text-align:center}")), # download
+###################################################################################3
 
 
 
-    ## POP UPS ##
+## POP UPS ##
 
-    bsTooltip(
-      id = "down",
-      title = "Downloading datasets take some time depending on the number of replications!",
+bsTooltip(
+  id = "down",
+  title = "Downloading datasets take some time depending on the number of replications!",
 
-      placement = "top",
-      trigger = "hover"
+  placement = "top",
+  trigger = "hover"
+),
+
+bsTooltip(
+  id = "downpoly",
+  title =  "Downloading datasets take some time depending on the number of replications!"
+  ,
+  placement = "top",
+  trigger = "hover"
+),
+
+
+bsTooltip(
+  id = "downfac",
+  title =  "Downloading datasets take some time depending on the number of replications!"
+  ,
+  placement = "top",
+  trigger = "hover"
+),
+
+
+#titlePanel("DATA GENERATION PANEL"),
+
+# h1(id="title", "DATA GENERATION PANEL"),
+# tags$style(HTML("#title{color: black; font-family: Arial;font-size: 35px;
+#         font-style: oblique;text-align:left}")),
+
+div(id = "tepe",
+    fluidRow(
+
+      column(6,
+
+             h1(id="title", "DATA GENERATION PANEL"),
+             tags$style(HTML("#title{color: black; font-family: 'Helvetica Neue', 'Lucida Grande', Helvetica, Arial, sans-serif;;font-size:30px;
+            font-style: oblique;text-align:left}"))
+
+      )  ,
+
+      column(6,
+             h1(id="title2", "RSP PACKAGE  - CRAN"),
+             tags$style(HTML("#title2{color: black; font-family: 'Helvetica Neue', 'Lucida Grande', Helvetica, Arial, sans-serif;;font-size:15px;
+            font-style: oblique;text-align:right}"))
+
+            # imageOutput("imagex",width = "15%", height = "30px", inline = TRUE),
+
+      )
+
+    )), # close fluidrow
+
+
+
+sidebarPanel(
+
+  width = 4,
+
+  ##  PANEL 1 INTRODUCTION ##
+
+  conditionalPanel(
+    condition = "input.panel==0",
+
+    shiny::img(src = "img/rsp3.png", width = "97%"),
+
+
+
+    ####################################################################################
+    #imageOutput("image1",width = "75%", height = "100px", inline = TRUE),
+    ######################################################################################
+
+
+    tags$head(
+      tags$script(HTML(js))
     ),
-
-    bsTooltip(
-      id = "downpoly",
-      title =  "Downloading datasets take some time depending on the number of replications!"
-      ,
-      placement = "top",
-      trigger = "hover"
-    ),
-
-
-    bsTooltip(
-      id = "downfac",
-      title =  "Downloading datasets take some time depending on the number of replications!"
-      ,
-      placement = "top",
-      trigger = "hover"
-    ),
-
-
-    #titlePanel("DATA GENERATION PANEL"),
-
-    h1(id="title", "DATA GENERATION PANEL"),
-    tags$style(HTML("#title{color: blue; font-family: Arial;font-size: 35px;
-            font-style: oblique;text-align:left}")),
-
-    sidebarPanel(
-
-      width = 4,
-
-      ##  PANEL 1 INTRODUCTION ##
-
-      conditionalPanel(
-        condition = "input.panel==0",
-        shiny::img(src = "img/rsp3.png", width = "97%"),
-        tags$head(
-          tags$script(HTML(js))
-        ),
-        br(),
-        br(),
-        br(),
-        textOutput("browser"),
-        tags$head(
-          tags$style(
-            "#browser{
+    br(),
+    br(),
+    br(),
+    textOutput("browser"),
+    tags$head(
+      tags$style(
+        "#browser{
                        color: darkblue;
                        font-size: 25px;
                        font-family: cursive;
@@ -147,452 +211,685 @@ $(document).on('shiny:sessioninitialized', function(event) {
                        text-align:center;
                        letter-spacing:1px;
                        }"
-          )
-        ),
+      ),
 
-        ####################################################################################
-        # imageOutput("image1",width = "75%", height = "100px", inline = TRUE),
-        ######################################################################################
+    ),
+
+
+    shinyWidgets::spectrumInput(   # RENK PALET WİDGET
+      inputId = "myColor",
+      label = "CHANGE THE COLOR OF THE THEME:",
+      choices = list(
+        list('gray', 'white', 'blanchedalmond', 'steelblue', 'forestgreen'),
+        as.list(brewer_pal(palette = "Blues")(9)),
+        as.list(brewer_pal(palette = "Greens")(9)),
+        as.list(brewer_pal(palette = "Spectral")(11)),
+        as.list(brewer_pal(palette = "Dark2")(8))
+      ),
+      options = list(`toggle-palette-more-text` = "Show more")
+    ),
+
+  ),
+
+  ## PANEL 2 DICHOTOMOUS DATA ##
+
+  conditionalPanel(
+    condition = "input.panel==1",
+
+    shinyWidgets::chooseSliderSkin("Big", color = "#112446"),
+
+    fluidRow(
+
+      column(12,
+             shiny::img(src = "img/rsp3.png", width = "97%"),
+
+      ) ),
+
+    br(),
+
+    ####################################################################################
+    #imageOutput("image2",width = "75%", height = "100px", inline = TRUE),
+    ####################################################################################
+
+    br(),
+
+    shinyWidgets::pickerInput(
+      "type1",
+      h3(id="ab", "Select Model"),
+
+      choices = list("1PL" = 1, "2PL" = 2,"3PL"=3 ),
+      selected = 3
+    ),
+
+
+    fluidRow(
+      column(6,
+
+             # numericInput("num1",
+             #
+             #                 h3(id="ab","Enter Number of Items"), min=5,max=100,value=10)
+             #
+
+             shinyWidgets::numericInputIcon(
+               inputId = "num1",
+               label = NULL,
+               min = 5,
+               max=200,
+               value = 10,
+               icon = "Number of Items",
+               width = "600px",
+               size = "sm"
+             )
+      ),
+
+      column(6,
+
+
+             shinyWidgets::numericInputIcon(
+               inputId = "num2",
+               label = NULL,
+               min = 50,
+               max=10000,
+               value = 300,
+               icon = "N",
+               width = "600px",
+               size = "sm"
+             )
+
+      )
+    ),
+
+
+    fluidRow(
+      column(6, uiOutput("mp1")),
+      column(6, uiOutput("mp1.1")),
+    ),
+
+    fluidRow(
+      column(6, uiOutput("mp2")),
+      column(6, uiOutput("mp3")),
+    ),
+    fluidRow(
+      column(6,
+
+             shinyWidgets::numericInputIcon(
+               inputId = "rep",
+               label = NULL,
+               min = 1,
+               max=1000,
+               value = 1,
+               icon = "Replication"
+             )
 
       ),
 
-      ## PANEL 2 DICHOTOMOUS DATA ##
+      column(6,
+             uiOutput("son")
 
-      conditionalPanel(
-        condition = "input.panel==1",
+      )
+    ),
 
 
-              fluidRow(
+    shinyWidgets::dropMenu(
 
-                column(12,
-                       shiny::img(src = "img/rsp3.png", width = "97%"),
+      padding = "20px",
 
-                ) ),
+      theme="light-border",
 
-        br(),
+      placement = "right-end",
 
-        ####################################################################################
-        # imageOutput("image2",width = "75%", height = "100px", inline = TRUE),
-        ####################################################################################
 
-        br(),
+      shinyWidgets::actionBttn(
+        inputId = "coms",
+        label = "CLICK TO COMPUTE RMSE-BIAS VALUES",
+        style = "jelly",
+        color = "primary"
 
-        selectInput(
-          "type1",
-          h3(id="ab", "Select Model"),
+      ),
 
-          choices = list("1PL" = 1, "2PL" = 2,"3PL"=3 ),
-          selected = 3
-        ),
 
+      shinyWidgets::pickerInput("irt", h3(id="ab","DO YOU WANT TO COMPUTE RMSE-BIAS VALUES"),
 
-        fluidRow(
-          column(6, numericInput("num1",
+                  choices = list("YES" = 1, "NO" = 2
+                  ), selected = 2),
 
-                                 h3(id="ab","Enter Number of Items"), min=5,max=100,value=10)),
 
-          column(6, numericInput("num2",
-                                 h3(id="ab"," Enter Number of Respondents"), min=50, max=10000, value=300))
-        ),
+      gt::gt_output("fit1"),
 
 
-        fluidRow(
-          column(6, uiOutput("mp1")),
-          column(6, uiOutput("mp1.1")),
-        ),
+      gt::gt_output("fit2"),
 
-        fluidRow(
-          column(6, uiOutput("mp2")),
-          column(6, uiOutput("mp3")),
-        ),
-        fluidRow(
-          column(6, uiOutput("mp4")),
-          column(6, numericInput("rep",
-                                 h3(id="ab","Enter Number of Replication"), min=1,max=1000, value=1))
-        ) ),
+      withLoader( gt::gt_output("fit3"), type = "html", loader = "loader1"),
 
-      ## PANEL 3 POLYTOMOUS DATA ##
+      gt::gt_output("grm"),
 
-      conditionalPanel(
-        condition = "input.panel==2",
+    ),
 
-        fluidRow(
 
-          column(12,
-                 shiny::img(src = "img/rsp3.png", width = "97%")
+  ), # close conditional panel
 
-          ) ),
+  ## PANEL 3 POLYTOMOUS DATA ##
 
-        br(),
+  conditionalPanel(
+    condition = "input.panel==2",
 
-        ####################################################################################
-        # imageOutput("image3",width = "75%", height = "100px", inline = TRUE),
-        ####################################################################################
+    fluidRow(
 
-        br(),
+      column(12,
+             shiny::img(src = "img/rsp3.png", width = "97%")
 
-        fluidRow(
+      ) ),
 
-          column(6, radioButtons(
-            "type2",
-            h3(id="ab","Select Model"),
+    br(),
 
-            choices = list("PCM" = 1, "RSM" = 2,"GPCM"=3,"GRM"=4),
-            selected = 1
-          ) ),
+    ####################################################################################
+    #imageOutput("image3",width = "75%", height = "100px", inline = TRUE),
+    ####################################################################################
 
-          column(6, selectInput(
-            "sec",
-            h3(id="ab","Enter Number of Categories"),
+    br(),
 
-            choices = list("3" = 3, "4" = 4,"5"=5,"6"=6,
-                           "7"=7,"8"=8,"9"=9,"10"=10),
-            selected = 3
-          ))),
+    fluidRow(
 
-        fluidRow(
+      column(8,
 
-          fluidRow(
-            column(6, numericInput("nitem",
+             shinyWidgets::radioGroupButtons(
+               inputId = "type2",
+               label =  h3(id="ab","Select Model"),
+               choices = list("PCM" = 1, "RSM" = 2,"GPCM"=3,"GRM"=4),
+               justified = TRUE,
+               checkIcon = list(
+                 yes = icon("ok",
+                            lib = "glyphicon")),
 
-                                   h3(id="ab","Enter Number of Items"), min=5,max=100,value=30)),
+               # status = "primary"
+             )
 
-            column(6, numericInput("nn",
-                                   h3(id="ab"," Enter Number of Respondents"), min=50, max=10000, value=100))
-          ),
 
-          fluidRow(
-            column(8, numericInput("polyrep",
-                                   h3(id="ab","Enter Number of Replication"), min=1,max=1000, value=1) )),
+      ), # close clmn
 
-          fluidRow(
-            column(8, selectInput("start2",
-                                  h3(id="ab","DO YOU WANT TO START DATA GENERATION?"),
-                                  choices = list("YES, START DATA GENERATION" = 1,
-                                                 "NO, NOT YET" = 2
-                                  ), selected = 2)))
+      column(4,
 
 
-        ) ),
+             shinyWidgets::numericInputIcon(
+               inputId = "sec",
+               label =  h3(id="ab","Categories"),
+               min = 1,
+               max=10,
+               value = 3,
+               icon = " N"
+             )
 
 
 
-      ## PANEL 4 MULTIDIMENSIAL DATA
+      ) # close column
 
+    ),
 
-      conditionalPanel(
-        condition = "input.panel==3",
+    fluidRow(
 
+      fluidRow(
+        column(6,
 
-        fluidRow(
+               shinyWidgets::numericInputIcon(
+                 inputId = "nitem",
+                 label = NULL,
+                 min = 5,
+                 max=200,
+                 value = 30,
+                 icon = "Number of Items",
+                 width = "600px",
+                 size = "sm"
+               )
 
-          column(12,
-                 shiny::img(src = "img/rsp3.png", width = "97%")
+        ), # close column
 
-          ) ),
+        column(6,
 
+               shinyWidgets::numericInputIcon(
+                 inputId = "nn",
+                 label = NULL,
+                 min = 50,
+                 max=10000,
+                 value = 100,
+                 icon = "N",
+                 width = "600px",
+                 size = "sm"
+               )
 
-        br(),
 
-        ####################################################################################
-        # imageOutput("image4",width = "75%", height = "100px", inline = TRUE),
-        ####################################################################################
+        ) # close column
+      ),
 
-        br(),
+      fluidRow(
 
-        fluidRow(
+        column(6,
 
-          column(6, selectInput( "ftype1",
+               shinyWidgets::numericInputIcon(
+                 inputId = "polyrep",
+                 label = NULL,
+                 min = 1,
+                 max=1000,
+                 value = 1,
+                 icon = "Replication"
+               )
 
-                                 h3(id="ab","Select Type of the Data"),
+        ), # close column
 
-                                 choices = list("Dichotomous" = TRUE, "Polythomous" = FALSE,"Continious"= 3),
-                                 selected = FALSE
-          ),
-          ),
 
-          column(6, sliderInput( "meanload", h3(id="ab","Select Average Factor Loading"),
 
-                                 min = 0, max = 1, step = 0.05, value = 0.55
+        column(6,
 
 
-          )),
+               shinyWidgets::switchInput(
+                 inputId = "start2",
+                 onLabel = "RESET",
+                 offLabel = "START",
+                 offStatus = "red",
+                 handleWidth = "200px",
+                 label = "GENERATE",
+                 labelWidth = "400px",
+                 size = "normal",
+                 inline = TRUE
 
-        ),
+               )
 
 
-        fluidRow(
-
-          column(6, numericInput("fnitem",
-
-                                 h3(id="ab","Enter Number of Items"), min=5,max=100,value=30)),
-
-          column(6, numericInput("fnn",
-                                 h3(id="ab","Enter Number of Respondents"), min=50, max=10000, value=100))
-        ),
-
-        fluidRow(
-
-          column(5, numericInput("nfac",
-
-                                 h3(id="ab","Enter Number of Factors"), min=1,max=20,value=2)),
-
-          column(7, numericInput("nlfl",
-                                 h3(id="ab","Number of Items with Low Loadings"),
-                                 min=0, max=30, value=0))
-        ),
-
-        fluidRow(
-
-          column(8, numericInput("frep",
-                                 h3(id="ab","Enter Number of Replication"), min=1,max=1000, value=1))
-        ),
-
-        fluidRow(
-
-          column(8, selectInput("start3",
-                                h3(id="ab","DO YOU WANT TO START DATA GENERATION?"),
-                                choices = list("YES, START DATA GENERATION" = 1,
-                                               "NO, NOT YET" = 2
-                                ), selected = 2)
-
-
-          )
 
         )
 
+
+      ), # close fluid row
+
+
+
+
+    ) ),
+
+
+
+  ## PANEL 4 MULTIDIMENSIAL DATA
+
+
+  conditionalPanel(
+    condition = "input.panel==3",
+
+
+    fluidRow(
+
+      column(12,
+             shiny::img(src = "img/rsp3.png", width = "97%")
+
+      ) ),
+
+
+    br(),
+
+    ####################################################################################
+    #imageOutput("image4",width = "75%", height = "100px", inline = TRUE),
+    ####################################################################################
+
+    br(),
+
+    fluidRow(
+
+      column(6, shinyWidgets::pickerInput( "ftype1",
+
+                             h3(id="ab","Select Data Type"),
+
+                             choices = list("Dichotomous" = TRUE, "Polythomous" = FALSE,"Continious"= 3),
+                             selected = FALSE
+      ),
+      ),
+
+      column(6, sliderInput( "meanload", h3(id="ab","Average Factor Loading"),
+
+                             min = 0, max = 1, step = 0.05, value = 0.55
+
+
+      )),
+
+    ),
+
+
+    fluidRow(
+
+      column(6,
+
+             # numericInput("fnitem", h3(id="ab","Number of Items"), min=5,max=100,value=30)
+
+
+             shinyWidgets::numericInputIcon(
+               inputId = "fnitem",
+               label = NULL,
+               min = 5,
+               max=200,
+               value = 30,
+               icon = "N of Items"
+             )
+
+
+
+
+      ),
+
+      column(6,
+
+
+
+
+
+             shinyWidgets::numericInputIcon(
+               inputId = "fnn",
+               label = NULL,
+               min = 50,
+               max=10000,
+               value = 100,
+               icon = "N"
+             )
+
+
+
       )
+    ),
 
-    ),  # close sidebar panel
+    fluidRow(
 
-    ##  MAIN PANEL ##
+      column(5,
 
-    mainPanel(
-      tabsetPanel(
 
-        ## M.PANEL 1 ##
 
-        id = "panel",
+             shinyWidgets::numericInputIcon(
+               inputId = "nfac",
+               label = h3(id="ab","Number of Factors"),
+               min = 1,
+               max=20,
+               value = 2,
+               icon = "N of factors"
+             )
 
-        tabPanel(
 
-          h4(id="a", "INTRODUCTION"),
 
-          value = 0,
+      ),
 
-          br(),
-          br(),
-          br(),
+      column(7,
 
-          fluidRow(
 
-            column(12, align="center",
-                   shiny::img(src = "img/rsp3.png", width = "97%")
 
-            ))
+             shinyWidgets::numericInputIcon(
+               inputId = "nlfl",
+               label = h3(id="ab","N of Items with Low Loadings"),
+               min = 0,
+               max=30,
+               value = 0,
+               icon = "Low loadings"
+             )
 
-          ####################################################################################
-          # imageOutput("image0",width = "75%", height = "100px", inline = TRUE),
-          ####################################################################################
 
-        ),
 
-        ## M. PANEL 2 ##
 
-        tabPanel(
-          h4(id="a","DICHOTOMOUS DATA GENERATION (IRT)"),
-          value = 1,
+      )
+    ),
 
-          br(),
 
-          textOutput("text0"),
+    fluidRow(
 
-          tags$head(tags$style("#text0{color: darkblue;
-                                 font-size: 25px;
-                                 font-family: cursive;
-                                 font-style: oblique;
-                                 text-align:center;
-                                 letter-spacing:1px;
+      column(6,
 
-                                 }")),
+             shinyWidgets::numericInputIcon(
+               inputId = "frep",
+               label = NULL,
+               min = 1,
+               max=1000,
+               value = 1,
+               icon = "Replication"
+             )
 
-          br(),
+      ), # close column
 
-          br(),
 
-          uiOutput("son"),
 
-          tableOutput("tab1"),
+      column(6,
 
-          tableOutput("tab2"),
 
-          tableOutput("tab3"),
+             shinyWidgets::switchInput(
+               inputId = "start3",
+               onLabel = "RESET",
+               offLabel = "START",
+               offStatus = "red",
+               handleWidth = "200px",
+               label = "GENERATE",
+               labelWidth = "400px",
+               size = "normal",
+               inline = TRUE
 
-          tableOutput("tab4"),
+             )
 
-          br(),
-
-          br(),
-
-          span( textOutput("text1"),style="color:red"), # NO NEED
-
-          tags$head(tags$style("#text1{color: darkblue;
-                                 font-size: 25px;
-                                 font-family: cursive;
-                                 font-style: oblique;
-                                 text-align:center;
-                                 letter-spacing:1px;
-
-                                 }")),
-
-          br(),
-
-          uiOutput("down"),
-
-
-          br(),
-
-
-          textOutput("text2"),
-
-
-          tags$head(tags$style("#text2{color: red;
-                                 font-size: 25px;
-                                 font-family: cursive;
-                                 font-style: oblique;
-                                 text-align:center;
-                                 letter-spacing:1px;
-
-                                 }")),
-          br(),
-
-          gt::gt_output("fit1"),
-
-
-          gt::gt_output("fit2"),
-
-
-          withLoader( gt::gt_output("fit3"), type = "html", loader = "loader1"),
-
-
-          gt::gt_output("grm"),
-
-
-        ),
-
-
-        ##  M. PANEL 3 ##
-
-        tabPanel(
-          h4(id="a", "POLYTOMUS DATA GENERATION (IRT)"),
-          value = 2,
-
-          br(),
-
-          textOutput("text00"),
-
-          tags$head(tags$style("#text00{color: darkblue;
-                                 font-size: 25px;
-                                 font-family: cursive;
-                                 font-style: oblique;
-                                 text-align:center;
-                                 letter-spacing:1px;
-
-                                 }")),
-
-          br(),
-
-          withLoader( tableOutput("tab_pcm"),  type = "html", loader = "loader1"),
-
-          tableOutput("tab_rsm"),
-
-          tableOutput("tab_gpcm"),
-
-          tableOutput("tab_grm"),
-
-          tableOutput("tab_nrm"),
-
-          br(),
-
-          br(),
-
-
-          textOutput("text3"),
-
-
-          tags$head(tags$style("#text3{color: red;
-                                 font-size: 25px;
-                                 font-family: cursive;
-                                 font-style: oblique;
-                                 text-align:center;
-                                 letter-spacing:1px;
-
-                                 }")),
-          br(),
-
-          br(),
-
-          uiOutput("downpoly")
-        ),
-
-        ## M.PANEL 4  ##
-
-        tabPanel(
-
-          h4(id="a", "MULTIDIMENSIONAL DATA GENERATION (CTT)"),
-          value = 3,
-
-          br(),
-
-          textOutput("text000"),
-
-          tags$head(tags$style("#text000{color: darkblue;
-                                 font-size: 25px;
-                                 font-family: cursive;
-                                 font-style: oblique;
-                                 text-align:center;
-                                 letter-spacing:1px;
-
-                                 }")),
-          br(),
-
-          # dataTableOutput("tab_fac_Poly"),
-          #
-          #
-          # dataTableOutput("tab_fac_Dicho"),
-          #
-          #
-          # dataTableOutput("tab_fac_Cont"),
-
-
-
-          uiOutput("tab_fac_all"),
-
-
-          textOutput("text4"),
-
-          tags$head(tags$style("#text4{color: darkblue;
-                                 font-size: 25px;
-                                 font-family: cursive;
-                                 font-style: oblique;
-                                 text-align:center;
-                                 letter-spacing:1px;
-
-                                 }")),
-
-
-          br(),
-
-          br(),
-
-          uiOutput("downfac")
-
-
-        )
       )
 
 
-    ) # close main panel
+    ), # close fluid row
+
+  ) # close conditional panel
+
+),  # close sidebar panel
+
+##  MAIN PANEL ##
+
+mainPanel(
+  tabsetPanel(
+
+    ## M.PANEL 1 ##
+
+    id = "panel",
+
+    tabPanel(
+
+      h4(id="a", "INTRO"),
+
+      value = 0,
+
+      br(),
+      br(),
+      br(),
+
+      fluidRow(
+
+        column(12, align="center",
+               shiny::img(src = "img/rsp3.png", width = "97%")
+
+        )),
+
+      ####################################################################################
+      #imageOutput("image0",width = "75%", height = "100px", inline = TRUE),
+      ####################################################################################
+
+    ),
+
+    ## M. PANEL 2 ##
+
+    tabPanel(
+      h4(id="a","DICHO DATA GEN (IRT)"),
+      value = 1,
+
+      br(),
+
+      textOutput("text0"),
+
+      tags$head(tags$style("#text0{color: darkblue;
+                                 font-size: 25px;
+                                 font-family: cursive;
+                                 font-style: oblique;
+                                 text-align:center;
+                                 letter-spacing:1px;
+
+                                 }")),
+
+
+
+
+      DT::dataTableOutput("tab1"),
+
+      DT::dataTableOutput("tab2"),
+
+      DT::dataTableOutput("tab3"),
+
+      DT::dataTableOutput("tab4"),
+
+
+      span( textOutput("text1"),style="color:red"), # NO NEED
+
+      tags$head(tags$style("#text1{color: darkblue;
+                                 font-size: 25px;
+                                 font-family: cursive;
+                                 font-style: oblique;
+                                 text-align:center;
+                                 letter-spacing:1px;
+
+                                 }")),
+
+      br(),
+
+      uiOutput("down"),
+
+
+      br(),
+
+
+      textOutput("text2"),
+
+
+      tags$head(tags$style("#text2{color: red;
+                                 font-size: 25px;
+                                 font-family: cursive;
+                                 font-style: oblique;
+                                 text-align:center;
+                                 letter-spacing:1px;
+
+                                 }")),
+      br(),
+
+      # gt::gt_output("fit1"),
+      #
+      #
+      # gt::gt_output("fit2"),
+
+
+      # withLoader( gt::gt_output("fit3"), type = "html", loader = "loader1"),
+      #
+      #
+      # gt::gt_output("grm"),
+
+
+    ),
+
+
+    ##  M. PANEL 3 ##
+
+    tabPanel(
+      h4(id="a", "POLY DATA GEN (IRT)"),
+      value = 2,
+
+      br(),
+
+      textOutput("text00"),
+
+      tags$head(tags$style("#text00{color: darkblue;
+                                 font-size: 25px;
+                                 font-family: cursive;
+                                 font-style: oblique;
+                                 text-align:center;
+                                 letter-spacing:1px;
+
+                                 }")),
+
+      br(),
+
+      withLoader( DT::DTOutput("tab_pcm"),  type = "html", loader = "loader1"),
+
+      DT::DTOutput("tab_rsm"),
+
+      DT::DTOutput("tab_gpcm"),
+
+      DT::DTOutput("tab_grm"),
+
+      DT::DTOutput("tab_nrm"),
+
+
+      textOutput("text3"),
+
+
+      tags$head(tags$style("#text3{color: darkblue;
+                                 font-size: 25px;
+                                 font-family: cursive;
+                                 font-style: oblique;
+                                 text-align:center;
+                                 letter-spacing:1px;
+
+                                 }")),
+      br(),
+
+
+      uiOutput("downpoly")
+    ),
+
+    ## M.PANEL 4  ##
+
+    tabPanel(
+
+      h4(id="a", "MULTIDIM DATA GEN (CTT)"),
+      value = 3,
+
+      br(),
+
+      textOutput("text000"),
+
+      tags$head(tags$style("#text000{color: darkblue;
+                                 font-size: 25px;
+                                 font-family: cursive;
+                                 font-style: oblique;
+                                 text-align:center;
+                                 letter-spacing:1px;
+
+                                 }")),
+      br(),
+
+      # dataTableOutput("tab_fac_Poly"),
+      #
+      #
+      # dataTableOutput("tab_fac_Dicho"),
+      #
+      #
+      # dataTableOutput("tab_fac_Cont"),
+
+
+
+      uiOutput("tab_fac_all"),
+
+
+      textOutput("text4"),
+
+      tags$head(tags$style("#text4{color: darkblue;
+                                 font-size: 25px;
+                                 font-family: cursive;
+                                 font-style: oblique;
+                                 text-align:center;
+                                 letter-spacing:1px;
+
+                                 }")),
+
+
+      br(),
+
+      br(),
+
+      uiOutput("downfac")
+
+
+    )
+  )
+
+
+) # close main panel
   ) # close fluidpage
 
 
@@ -601,6 +898,25 @@ $(document).on('shiny:sessioninitialized', function(event) {
   ## SERVER ##
 
   server <- function(input,session, output) {
+
+
+
+    observeEvent(input$myColor,{
+
+      output$cols<- renderUI({   # WIDET RENDER UI RENK DEĞİŞİMİ
+
+        bbb<-input$myColor
+
+        shinyWidgets::setBackgroundColor(
+          color = c("white", bbb),
+          gradient = "linear",
+          direction = c("bottom", "right")
+        )})
+    })
+
+
+
+
 
     output$browser <- renderText({
       req(input$myBrowser)
@@ -704,21 +1020,33 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
       fluidRow(
 
-        column(6, selectInput("start", h3(id="ab","DO YOU WANT TO START DATA GENERATION?"),
-
-                              choices = list("YES, START DATA GENERATION" = 1,
-                                             "NO, NOT YET" = 2
-                              ), selected = 2)),
-
         column(6,
-               selectInput("irt", h3(id="ab","DO YOU WANT TO COMPUTE RMSE-BIAS VALUES"),
 
-                           choices = list("YES" = 1, "NO" = 2
-                           ), selected = 2)
 
-        ) )
+               shinyWidgets::switchInput(
+                 inputId = "start",
+                 onLabel = "RESET",
+                 offLabel = "START",
+                 offStatus = "red",
+                 handleWidth = "200px",
+                 label = "GENERATE",
+                 labelWidth = "400px",
+                 size = "normal",
+                 inline = TRUE
+
+               )
+
+
+
+        ), # close colum
+      )
 
     })
+
+
+
+
+
 
     output$down<-renderUI( {
 
@@ -729,7 +1057,24 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
       fluidRow(
         column(5),
-        column(4, downloadButton("down1", h1(id="b","Download Generated Data"))),
+        column(4,
+
+
+               # downloadButton("down1", h1(id="b","Download Generated Data"))
+
+               shinyWidgets::downloadBttn(
+                 "down1",
+                 label = h1(id="b","Download Generated Data"),
+                 style = "unit",
+                 color = "primary",
+                 size = "sm",
+                 block = FALSE,
+                 no_outline = TRUE,
+                 icon = shiny::icon("download")
+               ),
+
+
+        ),
         column(3)
 
       )
@@ -746,10 +1091,25 @@ $(document).on('shiny:sessioninitialized', function(event) {
       fluidRow(
 
         column(5),
-        column(4, downloadButton("down2",
+        column(4,
 
 
-                                 h1(id="b","Download Generated Data"))),
+
+               shinyWidgets::downloadBttn(
+                 "down2",
+                 label = h1(id="b","Download Generated Data"),
+                 style = "unit",
+                 color = "primary",
+                 size = "sm",
+                 block = FALSE,
+                 no_outline = TRUE,
+                 icon = shiny::icon("download")
+               ),
+
+
+
+        ), # close column
+
         column(3)
 
       )
@@ -767,7 +1127,37 @@ $(document).on('shiny:sessioninitialized', function(event) {
       fluidRow(
 
         column(5),
-        column(4, downloadButton("down3", h1(id="b","Download Generated Data"))),
+
+
+        column(4,
+
+               # downloadButton("down3", h1(id="b","Download Generated Data"))
+
+
+
+
+
+
+
+
+
+               shinyWidgets::downloadBttn(
+                 "down3",
+                 label = h1(id="b","Download Generated Data"),
+                 style = "unit",
+                 color = "primary",
+                 size = "sm",
+                 block = FALSE,
+                 no_outline = TRUE,
+                 icon = shiny::icon("download")
+               ),
+
+
+
+        ), # close column
+
+
+
         column(3)
 
       )
@@ -779,7 +1169,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
     ## 1PL ##
 
 
-    output$tab1<-renderTable(rownames = TRUE ,{
+    output$tab1<-DT::renderDataTable(rownames = TRUE ,{
 
       req( input$start==1)
 
@@ -829,7 +1219,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
           colnames(answerMat2)<-paste0("item",1:nitem)
 
-          res<-as.data.frame(answerMat2)
+          res<-as.data.frame(round(answerMat2,3))
 
           return(res)
 
@@ -864,7 +1254,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
     ## 2PL ##
 
-    output$tab2<-renderTable(rownames = TRUE ,{
+    output$tab2<-DT::renderDataTable(rownames = TRUE ,{
 
       req( input$start==1)
 
@@ -910,7 +1300,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
           colnames(answerMat2)<-paste0("item",1:nitem)
 
-          res<-as.data.frame(answerMat2)
+          res<-as.data.frame(round(answerMat2,3))
 
           return(res)
 
@@ -944,7 +1334,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
     ## 3 PL ##
 
-    output$tab3<-renderTable(rownames = TRUE ,{
+    output$tab3<-DT::renderDataTable(rownames = TRUE ,{
 
       req( input$start==1)
 
@@ -1007,7 +1397,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
           colnames(answerMat2)<-paste0("item",1:nitem)
 
-          res<-as.data.frame(answerMat2)
+          res<-as.data.frame(round(answerMat2, 3))
 
           return(res)
 
@@ -1214,7 +1604,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
 
             emptyListK[[i]]<- mirt::mirt(data = emptyListG[[i]][3:input$num2,],
-                                   model = 1 , SE = FALSE , itemtype = "Rasch")
+                                         model = 1 , SE = FALSE , itemtype = "Rasch")
           }
 
           emptyListP<-list()
@@ -1222,7 +1612,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             emptyListP[[i]]<- mirt::coef( emptyListK[[i]],
-                                    IRTpars = TRUE, simplify = TRUE)$items
+                                          IRTpars = TRUE, simplify = TRUE)$items
           }
 
           SIMDATA_ENV$simParamDichotom <-emptyListP
@@ -1247,7 +1637,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
                            incProgress(1/input$rep)
 
                            biasb[i]<- Metrics::bias(as.numeric(emptyListG[[i]][1,]),
-                                           as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2] ))  }
+                                                    as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2] ))  }
 
                        })
 
@@ -1269,7 +1659,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
                            incProgress(1/input$rep)
 
                            rmseb[i]<- Metrics::rmse( as.numeric( emptyListG[[i]][1,] ),
-                                            as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2]) )
+                                                     as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2]) )
 
                          }  })
 
@@ -1295,7 +1685,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
 
                            biasa[i]<- Metrics::bias(  as.numeric(emptyListG[[i]][2,]),
-                                             as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]) )
+                                                      as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]) )
                          }  })
 
           biasa1<-biasa
@@ -1315,7 +1705,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
                            incProgress(1/input$rep)
                            rmsea[i]<- Metrics::rmse( as.numeric(emptyListG[[i]][2,]),
-                                            as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]  ) )
+                                                     as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]  ) )
 
                          }
 
@@ -1326,7 +1716,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           rmsea1<-mean(rmsea1)
 
           SIMDATA_ENV$rmseaBias <- data.frame( biasb=biasb1, rmseb=rmseb1,
-                                   biasa=biasa1,rmsea= rmsea1)
+                                               biasa=biasa1,rmsea= rmsea1)
 
           res<-gt::gt(SIMDATA_ENV$rmseaBias)
 
@@ -1388,7 +1778,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             emptyListK[[i]]<- mirt::mirt(data = emptyListG[[i]][3:input$num2,],
-                                   model = 1 , SE = FALSE , itemtype = "2PL")
+                                         model = 1 , SE = FALSE , itemtype = "2PL")
           }
 
 
@@ -1397,7 +1787,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             emptyListP[[i]]<- mirt::coef( emptyListK[[i]], IRTpars = TRUE,
-                                    simplify = TRUE)$items
+                                          simplify = TRUE)$items
 
           }
 
@@ -1414,7 +1804,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             biasb[i]<-Metrics:: bias(as.numeric(emptyListG[[i]][1,]),
-                            as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2] ))  }
+                                     as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2] ))  }
 
           biasb1<-biasb
 
@@ -1426,7 +1816,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             rmseb[i]<-Metrics::rmse( as.numeric( emptyListG[[i]][1,] ),
-                             as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2]) )
+                                     as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2]) )
 
           }
 
@@ -1441,7 +1831,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             biasa[i]<-  Metrics::bias(  as.numeric(emptyListG[[i]][2,]),
-                              as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]) )
+                                        as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]) )
 
           }
 
@@ -1455,7 +1845,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
 
             rmsea[i]<-Metrics::rmse( as.numeric(emptyListG[[i]][2,]),
-                             as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]  ) )
+                                     as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]  ) )
           }
 
           rmsea1<-rmsea
@@ -1463,7 +1853,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           rmsea1<-mean(rmsea1)
 
           SIMDATA_ENV$rmseaBias <- data.frame( biasb=biasb1,
-                                   rmseb=rmseb1,biasa=biasa1,rmsea= rmsea1)
+                                               rmseb=rmseb1,biasa=biasa1,rmsea= rmsea1)
 
           res<-gt::gt(SIMDATA_ENV$rmseaBias)
 
@@ -1522,7 +1912,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             emptyListK[[i]]<- mirt::mirt(data = emptyListG[[i]][4:input$num2+3,],
-                                   model = 1 , SE = FALSE , itemtype = "3PL")
+                                         model = 1 , SE = FALSE , itemtype = "3PL")
           }
 
 
@@ -1531,7 +1921,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             emptyListP[[i]]<- mirt::coef( emptyListK[[i]], IRTpars = TRUE,
-                                    simplify = TRUE)$items
+                                          simplify = TRUE)$items
 
           }
 
@@ -1548,7 +1938,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             biasb[i]<-Metrics::bias(as.numeric(emptyListG[[i]][1,]),
-                            as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2] ))  }
+                                    as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2] ))  }
 
           biasb1<-biasb
 
@@ -1560,7 +1950,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             rmseb[i]<- Metrics::rmse( as.numeric( emptyListG[[i]][1,] ),
-                             as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2]) )
+                                      as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,2]) )
 
           }
 
@@ -1575,7 +1965,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             biasa[i]<-Metrics::bias(  as.numeric(emptyListG[[i]][2,]),
-                              as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]) )
+                                      as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]) )
 
 
           }
@@ -1589,7 +1979,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep ) {
 
             rmsea[i]<-Metrics::rmse( as.numeric(emptyListG[[i]][2,]),
-                             as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]  ) )
+                                     as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,1]  ) )
 
           }
 
@@ -1604,7 +1994,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           for ( i in 1:input$rep) {
 
             biasc[i]<-  Metrics::bias(as.numeric(emptyListG[[i]][3,]),
-                              as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,3]) )
+                                      as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,3]) )
 
 
           }
@@ -1620,7 +2010,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
 
             rmsec[i]<- Metrics::rmse( as.numeric(emptyListG[[i]][3,]),
-                             as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,3]  ) )
+                                      as.numeric(SIMDATA_ENV$simParamDichotom[[i]][,3]  ) )
           }
 
           rmsec1<-rmsec
@@ -1628,7 +2018,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
           rmsec1<-mean(rmsec1)
 
           SIMDATA_ENV$rmseaBias <- data.frame( biasb=biasb1, rmseb=rmseb1,
-                                   biasa=biasa1,rmsea= rmsea1,biasc=biasc1,rmsec=rmsec1)
+                                               biasa=biasa1,rmsea= rmsea1,biasc=biasc1,rmsec=rmsec1)
 
           res<-gt::gt(SIMDATA_ENV$rmseaBias)
 
@@ -1672,7 +2062,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
     ## PCM ##
 
-    output$tab_pcm<- renderTable( {
+    output$tab_pcm<- DT::renderDT( {
 
       req( input$start2==1)
 
@@ -1695,11 +2085,11 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
                          incProgress(1/input$polyrep)
 
-                         PCM_B[[i]]<- genPolyMatrix(items = input$nitem,
-                                                    nrCat = as.numeric(input$sec),
-                                                    model = "PCM",seed = i, same.nrCat = TRUE, cbControl = NULL)
+                         PCM_B[[i]]<-    genPolyMatrix(items = input$nitem,
+                                                       nrCat = as.numeric(input$sec),
+                                                       model = "PCM",seed = i, same.nrCat = TRUE, cbControl = NULL)
 
-                         PCM_B1<-PCM_B
+                         PCM_B1<- as.matrix( PCM_B  )
 
                          PCM_DAT1[[i]]<-genPattern(rnorm(input$nn), PCM_B1[[i]], model = "PCM")
 
@@ -1709,6 +2099,9 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
                        } })
 
+
+        # PCM_DAT1<-as.data.frame(PCM_DAT1)
+
         return(PCM_DAT1[[1]][1:10,1:10])
       }
 
@@ -1717,7 +2110,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
     ## RSM ##
 
-    output$tab_rsm<-renderTable({
+    output$tab_rsm<-DT::renderDT({
 
       req( input$start2==1)
 
@@ -1745,15 +2138,16 @@ $(document).on('shiny:sessioninitialized', function(event) {
                                                     nrCat = as.numeric(input$sec),
                                                     model = "RSM",seed = i, same.nrCat = TRUE, cbControl = NULL)
 
-                         RSM_B1<-RSM_B
+                         RSM_B1<-  as.matrix (RSM_B)
 
-                         RSM_DAT1[[i]]<-genPattern(rnorm(input$nn), RSM_B1[[i]], model = "RSM")
+                         RSM_DAT1[[i]]<-  genPattern(rnorm(input$nn), RSM_B1[[i]], model = "RSM")
 
                          SIMDATA_ENV$simDataRSM <- RSM_DAT1
 
                          colnames(RSM_DAT1[[i]])<-paste0("item",1:input$nitem)
 
                        } })
+
         return(RSM_DAT1[[1]][1:10,1:10])
       }
     })
@@ -1761,7 +2155,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
     ## GPCM ##
 
-    output$tab_gpcm<-renderTable( {
+    output$tab_gpcm<-DT::renderDT( {
 
       req( input$start2==1)
 
@@ -1788,7 +2182,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
                                                      nrCat = as.numeric(input$sec),
                                                      model = "GPCM",seed = i, same.nrCat = TRUE,cbControl = NULL)
 
-                         GPCM_B1<-GPCM_B
+                         GPCM_B1<-   as.matrix (GPCM_B )
 
                          GPCM_DAT1[[i]]<-genPattern(rnorm(input$nn),GPCM_B1[[i]], model = "GPCM")
 
@@ -1798,6 +2192,8 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
                        } })
 
+        # GPCM_DAT1<-as.data.frame(GPCM_DAT1)
+
 
         return(GPCM_DAT1[[1]][1:10,1:10])
 
@@ -1806,7 +2202,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
     ## GRM ##
 
-    output$tab_grm<-renderTable({
+    output$tab_grm<- DT::renderDT({
 
       req( input$start2==1)
 
@@ -1832,15 +2228,17 @@ $(document).on('shiny:sessioninitialized', function(event) {
                                                     nrCat = as.numeric(input$sec),
                                                     model = "GRM",seed = i, same.nrCat = TRUE, cbControl = NULL)
 
-                         GRM_B1<-GRM_B
+                         GRM_B1<- as.matrix (GRM_B )
 
                          GRM_DAT1[[i]]<-genPattern(rnorm(input$nn), GRM_B1[[i]], model = "GRM")
 
                          SIMDATA_ENV$simDataGRM <- GRM_DAT1
 
-                         colnames(GRM_DAT1[[i]])<-paste0("item",1:input$nitem)
 
                        } } )
+
+        # GRM_DAT1<-as.data.frame(GRM_DAT1)
+
         return(GRM_DAT1[[1]][1:10,1:10])
 
       }
@@ -1880,11 +2278,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
               " EACH DATA SET CONSISTS OF", input$fnitem, "ITEMS AND", input$fnn,
 
               "PARTICIPANTS.","AVERAGE FACTOR LOADING IS", input$meanload )
-
-
-
     })
-
 
 
     ## MULTIDIMENSIONAL DATA GENERATE ##
@@ -2151,8 +2545,8 @@ $(document).on('shiny:sessioninitialized', function(event) {
                          incProgress(1/length(SIMDATA_ENV$seedCont))
 
                          listGL2[[i]]<- datatable(round(factorDicho(nitem = input$fnitem, n=input$fnn, nfac = input$nfac,
-                                                              factorloading = input$meanload,
-                                                              lowfactoritem = input$nlfl), 4)) %>% formatStyle( SIMDATA_ENV$lowC, backgroundColor = "pink")
+                                                                    factorloading = input$meanload,
+                                                                    lowfactoritem = input$nlfl), 4)) %>% formatStyle( SIMDATA_ENV$lowC, backgroundColor = "pink")
                        }
                      } })
 
@@ -2162,10 +2556,6 @@ $(document).on('shiny:sessioninitialized', function(event) {
       return(listGL2[[1]])
 
     })
-
-
-    #########################################################################################
-
 
 
     output$tab_fac_all <- renderUI({

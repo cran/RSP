@@ -1,14 +1,15 @@
 Package: RSP
 Type: Package
 Title: 'shiny' Applications for Statistical and Psychometric Analysis
-Version: 0.1
+Version: 0.4
 Authors@R: c(
     person("Celal Deha", "Dogan", ,"dehadogan@gmail.com", 
     role = c("aut"),
     comment = c(ORCID = "0000-0003-0683-1334")),
     person("Eren Can", "Aybek", ,"erencan@aybek.net", 
     role = c("aut", "cre"),
-    comment = c(ORCID = "0000-0003-3040-2337"))
+    comment = c(ORCID = "0000-0003-3040-2337")),
+    person("Sumeyra", "Soysal", role = c("ctb"))
   )
 Maintainer: Eren Can Aybek <erencan@aybek.net>
 Description: Toolbox with 'shiny' applications for widely used psychometric
@@ -24,16 +25,18 @@ License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Imports: DT, GPArotation, MVN, Metrics, ShinyItemAnalysis, catR,
-        foreign, gt, hornpa, igraph, lavaan, mirt, plyr, polycor,
-        psych, rJava, semPlot, shinyBS, shinycustomloader, shinyjs,
-        shinythemes, xlsx, shiny, utils, rstudioapi
+        foreign, gt, hornpa, igraph, lavaan, mirt, plyr, ggplot2,
+        polycor, psych, rJava, semPlot, shinyBS, shinyWidgets, scales,
+        ltm, shinycustomloader, shinyjs, shinythemes, xlsx, shiny,
+        utils, rstudioapi
 Depends: R (>= 2.10)
 Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2023-01-12 20:17:06 UTC; Eren Can
+Packaged: 2023-09-24 20:13:35 UTC; ec
 Author: Celal Deha Dogan [aut] (<https://orcid.org/0000-0003-0683-1334>),
-  Eren Can Aybek [aut, cre] (<https://orcid.org/0000-0003-3040-2337>)
+  Eren Can Aybek [aut, cre] (<https://orcid.org/0000-0003-3040-2337>),
+  Sumeyra Soysal [ctb]
 Repository: CRAN
-Date/Publication: 2023-01-17 16:50:02 UTC
+Date/Publication: 2023-09-24 21:00:02 UTC

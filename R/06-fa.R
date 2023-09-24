@@ -1,4 +1,4 @@
-#' Run principal component analysis for dichotomous and polytomous data
+#' Run exploratory factor analysis for dichotomous and polytomous data
 #' @import foreign
 #' @import rJava
 #' @importFrom stats cor
@@ -7,11 +7,11 @@
 #' @importFrom utils globalVariables
 #' @importFrom psych cortest.bartlett KMO tetrachoric principal
 #' @return No return value, opens web browser and loads shiny application
-#' @examples \dontrun{PCA()}
+#' @examples \dontrun{FA()}
 #' @export
 
-PCA <- function(){
-  PCA_ENV <- new.env()
+FA <- function(){
+  FA_ENV <- new.env()
   js <- "
 // This solution from https://stackoverflow.com/a/59674107
 // execute the code after the shiny session has started
@@ -55,7 +55,8 @@ $(document).on('shiny:sessioninitialized', function(event) {
       type="text/css",
       "#image0 img {max-width: 100%; width: auto; height: 100%; align: center}
 
-table,img, .tippy-content{ border-collapse: collapse;
+
+    table,img, .tippy-content{ border-collapse: collapse;
 
   border-radius: 1em;
 
@@ -73,169 +74,151 @@ table,img, .tippy-content{ border-collapse: collapse;
 
   }
 
- #tepe{
+   #tepe{
   border-bottom: 3px solid black;
   }
-
-      "
+    "
     )),
 
-tags$head(tags$style(
-  type="text/css",
-  "#image1 img {max-width: 100%; width: auto; height: 100%; align: center}"
-)),
+  tags$head(tags$style(
+    type="text/css",
+    "#image1 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
 
-tags$head(tags$style(
-  type="text/css",
-  "#image2 img {max-width: 100%; width: auto; height: 100%; align: center}"
-)),
+  tags$head(tags$style(
+    type="text/css",
+    "#image2 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
 
-tags$head(tags$style(
-  type="text/css",
-  "#image3 img {max-width: 100%; width: auto; height: 100%; align: center}"
-)),
+  tags$head(tags$style(
+    type="text/css",
+    "#image3 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
 
-tags$head(tags$style(
-  type="text/css",
-  "#image4 img {max-width: 100%; width: auto; height: 100%; align: center}"
-)),
+  tags$head(tags$style(
+    type="text/css",
+    "#image4 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
 
-tags$head(tags$style(
-  type="text/css",
-  "#image5 img {max-width: 100%; width: auto; height: 100%; align: center}"
-)),
+  tags$head(tags$style(
+    type="text/css",
+    "#image5 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
 
-tags$head(tags$style(
-  type="text/css",
-  "#image6 img {max-width: 100%; width: auto; height: 100%; align: center}"
-)),
-###################################################################################
+  tags$head(tags$style(
+    type="text/css",
+    "#image6 img {max-width: 100%; width: auto; height: 100%; align: center}"
+  )),
+  ###################################################################################
 
-tags$style(HTML("#a{color:black; font-family:Lucida Arial ;font-size: 16px;
-              font-style: oblique;text-align:center}")), #tabs#
+  tags$style(HTML("#a{color:black; font-family:Lucida Arial ;font-size: 16px;
+             font-style: oblique;text-align:center}")), #tabs#
 
-tags$style(HTML("#ab{color:black; font-family:Lucida Arial ;font-size: 20px;
+  tags$style(HTML("#ab{color:black; font-family:Lucida Arial ;font-size: 20px;
              font-style: oblique;text-align:center}")), # widgets#
 
-tags$style(HTML("#b{color:black; font-family: cursive;font-size: 15px;
+  tags$style(HTML("#b{color:black; font-family: cursive;font-size: 15px;
             font-style: oblique;text-align:center}")), # download #
-####################################################################################
+  ####################################################################################
 
-## POP UP ##
+  ## POP UP ##
 
-bsTooltip(
-  id = "text1",
-  title = "Only a small part of the data is presented",
-  placement = "bottom",
-  trigger = "hover"
-),
-bsTooltip(
-  id = "rotation",
-  title = "If the correlation between factors is low,choose varimax method",
-  placement = "bottom",
-  trigger = "hover"
-),
-bsTooltip(
-  id = "factornumber",
-  title = "Determine the number of factors according to the result of the parallel analysis",
-  placement = "bottom",
-  trigger = "hover"
-),
-bsTooltip(
-  id = "scree_plot",
-  title = "You can determine the number of eigen values over the black parallel analysis line as the number of factors",
-  placement = "top",
-  trigger = "hover"
-),
-bsTooltip(
-  id = "eigen_value",
-  title = "Eigen values higher than the pa mean are indicated in red and underlined",
-  placement = "top",
-  trigger = "hover"
-),
-bsTooltip(
-  id = "fakor",
-  title = "When the number of factors is more than 2 in order to see all the results slide the bar below to the right.",
-  placement = "bottom",
-  trigger = "hover"
-),
-bsTooltip(
-  id = "type",
-  title = "Make sure you choose the data type correctly!",
-  placement = "top",
-  trigger = "hover"
-),
-bsTooltip(
-  id = "tableFactor",
-  title = "Items with a lower factor loading than the determined cutting score are indicated in red and underlined",
-  placement = "top",
-  trigger = "hover"
-),
+  bsTooltip(
+    id = "text1",
+    title = "Only a small part of the data is presented",
+    placement = "bottom",
+    trigger = "hover"
+  ),
+  bsTooltip(
+    id = "rotation",
+    title = "If the correlation between factors is low,choose varimax method",
+    placement = "bottom",
+    trigger = "hover"
+  ),
+  bsTooltip(
+    id = "factornumber",
+    title = "Determine the number of factors according to the result of the parallel analysis",
+    placement = "bottom",
+    trigger = "hover"
+  ),
+  bsTooltip(
+    id = "scree_plot",
+    title = "You can determine the number of eigen values over the black parallel analysis line as the number of factors",
+    placement = "top",
+    trigger = "hover"
+  ),
+  bsTooltip(
+    id = "eigen_value",
+    title = "Eigen values higher than the pa mean are indicated in red and underlined",
+    placement = "top",
+    trigger = "hover"
+  ),
+  bsTooltip(
+    id = "fakor",
+    title = "When the number of factors is more than 2 in order to see all the results slide the bar below to the right.",
+    placement = "bottom",
+    trigger = "hover"
+  ),
+  bsTooltip(
+    id = "type",
+    title = "Make sure you choose the data type correctly!",
+    placement = "top",
+    trigger = "hover"
+  ),
+  bsTooltip(
+    id = "tableFactor",
+    title = "Items with a lower factor loading than the determined cutting score are indicated in red and underlined",
+    placement = "top",
+    trigger = "hover"
+  ),
 
-bsTooltip(
-  id = "KMo",
-  title = "You can examine the change in the KMO value when the items are removed or added.",
-  placement = "bottom",
-  trigger = "hover"
-),
+  bsTooltip(
+    id = "KMo",
+    title = "You can examine the change in the KMO value when the items are removed or added.",
+    placement = "bottom",
+    trigger = "hover"
+  ),
 
-## TITLE PANEL - SIDE BAR PANEL ##
+  ## TITLE PANEL - SIDE BAR PANEL ##
 
-# titlePanel("PRINCIPAL COMPONENT ANALYSIS",
-#   windowTitle = "PRINCIPAL COMPONENT ANALYSIS"
-# ),
+  div(id ="tepe",
+      fluidRow(
 
-# h1(id="title", "PRINCIPAL COMPONENT ANALYSIS"),
-# tags$style(HTML("#title{color: black; font-family: Arial;font-size: 35px;
-#         font-style: oblique;text-align:left}")),
+        column(6,
 
-
-
-div(id="tepe",
-    fluidRow(
-
-      column(6,
-
-             h1(id="title", "PRINCIPAL COMPONENT ANALYSIS (PCA) "),
-             tags$style(HTML("#title{color: black; font-family: 'Helvetica Neue', 'Lucida Grande', Helvetica, Arial, sans-serif;;font-size:30px;
+               h1(id="title", "EXPLORATORY FACTOR ANALYSIS (EFA) "),
+               tags$style(HTML("#title{color: black; font-family: 'Helvetica Neue', 'Lucida Grande', Helvetica, Arial, sans-serif;;font-size:30px;
             font-style: oblique;text-align:left}"))
 
-      )  ,
+        )  ,
 
-      column(6,
-             h1(id="title2", "RSP PACKAGE  - CRAN"),
-             tags$style(HTML("#title2{color: black; font-family: 'Helvetica Neue', 'Lucida Grande', Helvetica, Arial, sans-serif;;font-size:15px;
+        column(6,
+               h1(id="title2", "RSP PACKAGE  - CRAN"),
+               tags$style(HTML("#title2{color: black; font-family: 'Helvetica Neue', 'Lucida Grande', Helvetica, Arial, sans-serif;;font-size:15px;
             font-style: oblique;text-align:right}"))
 
+        )
+
+      )),
 
 
-            # imageOutput("imagex",width = "15%", height = "30px", inline = TRUE),
+  br(),
 
-      )
-
-    )), # close fluidrow
-
-
-
-
-
-br(),
-
-sidebarPanel(
-  ## PANEL 1 - INTRODUCTION ##
-  conditionalPanel(
-    condition = "input.panel==0",
-    shiny::img(src = "img/rsp1.png", width = "97%"),
-    tags$head(
-      tags$script(HTML(js))
-    ),
-    br(),
-    br(),
-    br(),
-    textOutput("browser"),
-    tags$head(
-      tags$style(
-        "#browser{
+  sidebarPanel(
+    ## PANEL 1 - INTRODUCTION ##
+    conditionalPanel(
+      condition = "input.panel==0",
+      shiny::img(src = "img/fa1.png", width = "97%"),
+      tags$head(
+        tags$script(HTML(js))
+      ),
+      br(),
+      br(),
+      br(),
+      textOutput("browser"),
+      tags$head(
+        tags$style(
+          "#browser{
                        color: darkblue;
                        font-size: 25px;
                        font-family: cursive;
@@ -243,343 +226,367 @@ sidebarPanel(
                        text-align:center;
                        letter-spacing:1px;
                        }"
-      )
-    ),
-    ######################################################################################
-    imageOutput("image1",width = "75%", height = "100px", inline = TRUE),
-    ######################################################################################
-
-    br(),
-    br(),
-
-    shinyWidgets::spectrumInput(   # RENK PALET WİDGET
-      inputId = "myColor",
-      label = "CHANGE THE COLOR OF THE THEME:",
-      choices = list(
-        list('gray', 'white', 'blanchedalmond', 'steelblue', 'forestgreen'),
-        as.list(brewer_pal(palette = "Blues")(9)),
-        as.list(brewer_pal(palette = "Greens")(9)),
-        as.list(brewer_pal(palette = "Spectral")(11)),
-        as.list(brewer_pal(palette = "Dark2")(8))
+        )
       ),
-      options = list(`toggle-palette-more-text` = "Show more")
-    ),
-  ),
+      ######################################################################################
+      #imageOutput("image1",width = "75%", height = "100px", inline = TRUE),
+      ######################################################################################
 
-  ## PANEL 2 - DATA UPLOAD ##
+      br(),
+      br(),
 
-  conditionalPanel(
-    condition = "input.panel==1",
-    shiny::img(src = "img/rsp1.png", width = "97%"),
-
-    ###################################################################
-    imageOutput("image2",width = "15%", height = "50px", inline = TRUE),
-    ###################################################################
-
-    br(),
-    br(),
-
-    shinyWidgets::radioGroupButtons(
-      inputId = "type",
-      label =  h3(id="ab","Select Data Type"),
-      choices = c("Polytomous (Likert etc..)"=1,
-                  "1-0"=2),
-
-      justified = TRUE,
-      checkIcon = list(
-        yes = icon("ok",
-                   lib = "glyphicon")),
-
-      # status = "primary"
-    ),
-
-    shinyWidgets::pickerInput(
-      inputId = "type2",
-      label = h3(id="ab","Select File Format"),
-      choices = list(
-        "CSV - Semicolon  Separated  Excel" = 1,
-        "CSV - Comma  Separated  Excel" = 2,
-        "SAV - SPSS" = 3,
-        "XLSX - Excel"=4
+      shinyWidgets::spectrumInput(   # RENK PALET WİDGET
+        inputId = "myColor",
+        label = "CHANGE THE COLOR OF THE THEME:",
+        choices = list(
+          list('gray', 'white', 'blanchedalmond', 'steelblue', 'forestgreen'),
+          as.list(brewer_pal(palette = "Blues")(9)),
+          as.list(brewer_pal(palette = "Greens")(9)),
+          as.list(brewer_pal(palette = "Spectral")(11)),
+          as.list(brewer_pal(palette = "Dark2")(8))
+        ),
+        options = list(`toggle-palette-more-text` = "Show more")
       ),
-      selected = 3,
-      options =  shinyWidgets::pickerOptions(showTick=TRUE,
-      ),#style = "btn-primary"),
-
     ),
 
-    uiOutput("uiHeader"),
+    ## PANEL 2 - DATA UPLOAD ##
 
-    div(  style="color:red;",
+    conditionalPanel(
+      condition = "input.panel==1",
+      shiny::img(src = "img/fa1.png", width = "97%"),
 
-          HTML( "<marquee direction='left' scrollamount = '5'>
+      ###################################################################
+      #imageOutput("image2",width = "15%", height = "50px", inline = TRUE),
+      ###################################################################
+
+      br(),
+      br(),
+
+      shinyWidgets::radioGroupButtons(
+        inputId = "type",
+        label =  h3(id="ab","Select Data Type"),
+        choices = c("Polytomous (Likert etc..)"=1,
+                    "1-0"=2),
+
+        justified = TRUE,
+        checkIcon = list(
+          yes = icon("ok",
+                     lib = "glyphicon")),
+
+        # status = "primary"
+      ),
+
+      # prettyRadioButtons(
+      #   inputId = "type",
+      #   label = h3(id="ab","Select Data Type"),
+      #   choices = c("Polytomous (Likert etc..)"=1,
+      #               "1-0"=2),
+      #
+      #   shape = "curve",animation = "rotate" , inline = FALSE,
+      #   bigger = TRUE, status = "primary", outline = TRUE,
+      #   fill = FALSE, width = "500px"
+      # ),
+
+
+      shinyWidgets::pickerInput(
+        inputId = "type2",
+        label = h3(id="ab","Select File Format"),
+        choices = list(
+          "CSV - Semicolon  Separated  Excel" = 1,
+          "CSV - Comma  Separated  Excel" = 2,
+          "SAV - SPSS" = 3,
+          "XLSX - Excel"=4
+        ),
+        selected = 3,
+        options =  shinyWidgets::pickerOptions(showTick=TRUE,
+        ),#style = "btn-primary"),
+
+      ),
+
+      uiOutput("uiHeader"),
+
+      div(  style="color:red;",
+
+            HTML( "<marquee direction='left' scrollamount = '5'>
                       THE DATASET SHOULD CONTAIN ONLY THE VARIABLES TO BE INCLUDED IN THE ANALYSIS!!!
 
                </marquee>"  )),
 
-    fileInput(
-      "data1",
-      h3(id="ab","Uplad Data File",icon("paper-plane"))
-    ),
+      fileInput(
+        "data1",
+        h3(id="ab","Uplad Data File",icon("paper-plane"))
+      ),
 
-    shinyWidgets::dropMenu(
+      shinyWidgets::dropMenu(
 
-      #actionButton("acb1", "DOWNLOAD"),
-
-
-      padding = "20px",
-
-      theme="light-border",
-
-      placement = "right-end",
+        #actionButton("acb1", "DOWNLOAD"),
 
 
-      shinyWidgets::actionBttn(
-        inputId = "acb2",
-        label = "CLICK TO SEE KMO  AND BARTLET SPHERICITY TEST RESULTS",
-        style = "jelly",
-        color = "primary"
+        padding = "20px",
+
+        theme="light-border",
+
+        placement = "right-end",
+
+
+        shinyWidgets::actionBttn(
+          inputId = "acb2",
+          label = "CLICK TO SEE KMO  AND BARTLET SPHERICITY TEST RESULTS",
+          style = "jelly",
+          color = "primary"
+
+        ),
+
+        gt::gt_output("dat3")
 
       ),
 
-      gt::gt_output("dat3")
-
-    ), # close dropmenu
-
-    # gt::gt_output("dat3.1")
-
-  ),  # close conditional panel
-
-  ## PANEL 3 - NUMBER OF FACTORS ##
-  conditionalPanel(
-    condition = "input.panel==2",
-    shiny::img(src = "img/rsp1.png", width = "97%"),
-
-    ###################################################################
-    imageOutput("image3",width = "15%", height = "50px", inline = TRUE),
-    ###################################################################
-    br(),
-    br(),
-
-    shinyWidgets::chooseSliderSkin("Big", color = "#112446"),
-    uiOutput("factornumber"),
-    br(),
-    br(),
-
-    shinyWidgets::dropMenu(
-
-      padding = "20px",
-
-      theme="light-border",
-
-      placement = "top-start",
-
-      shinyWidgets::actionBttn(
-        inputId = "korfak",
-        label = "CLICK TO SEE CORRELATIONS AMONG THE FACTORS",
-        style = "jelly",
-        color = "primary"
-
-      ),
-
-      gt::gt_output("fakor"),
-
-
-
-
+      # gt::gt_output("dat3.1")
     ),
 
-    br(),
-    br(),
-
-    shinyWidgets::pickerInput(
-      inputId = "rotation",
-      label = h3(id="ab","Select Rotation Method"),
-      choices = list(
-        "Varimax" = "varimax",
-        "Direct Oblimin" = "oblimin",
-        "No Rotation" = "none"
-      ),
-      selected = "none",
-      options =  shinyWidgets::pickerOptions(showTick=TRUE,
-      ),#style = "btn-primary"),
-    ),
-  ),
-
-  ## PANEL 4 - FACTOR LOADINGS ##
-  conditionalPanel(
-    condition = "input.panel==3",
-    shiny::img(src = "img/rsp1.png", width = "97%"),
-
-    ###################################################################
-    imageOutput("image4",width = "15%", height = "50px", inline = TRUE),
-    ###################################################################
-
-    #  br(),
-
-    gt::gt_output("KMo"),
-    br(),
-
-    fluidRow(
-
-      column( 3 ),
-      column( 9,
-
-              uiOutput("remove_item")) ),
-    # br(),
-
-    uiOutput("select_item"),
-
-    # ##################### NEW KMO 1 #################
-
-    br(),
-
-
-    sliderInput(
-      "cut_off",
-      h3(id="ab","Select cut-off value for Factor Loadings"),
-      min = 0.25,
-      max = 0.60,
-      step = 0.05,
-      value = 0.30
-    ),
-
-
-    br(),
-
-    fluidRow(
-
-      column(6,
-
-             shinyWidgets::dropMenu(
-
-               padding = "20px",
-
-               theme="light-border",
-
-               placement = "right-end",
-
-
-               shinyWidgets::actionBttn(
-                 inputId = "coms",
-                 label = "CLICK TO SEE COMMUNALITIES",
-                 style = "jelly",
-                 color = "primary"
-
-               ),
-
-
-               DT::DTOutput("commons"),
-
-             ),
-
-
-      ), # close column
-
-
-
-      column(6,
-
-             shinyWidgets::dropMenu(
-
-               padding = "20px",
-
-               theme="light-border",
-
-               placement = "right-end",
-
-               shinyWidgets::actionBttn(
-                 inputId = "acb1",
-                 label = "CLICK TO  SEE DOWNLOADS",
-                 style = "jelly",
-                 color = "primary"
-
-               ),
-
-
-
-               shinyWidgets::downloadBttn(
-                 "factorDownload",
-                 label = h1(id="b", "FACTOR LOADINGS"),
-                 style = "unite",
-                 color = "primary",
-                 size = "sm",
-                 block = FALSE,
-                 no_outline = TRUE,
-                 icon = shiny::icon("download")
-               ),
-
-               br(),
-               br(),
-
-
-               shinyWidgets::downloadBttn(
-                 "varianceDownload",
-                 label = h1(id="b", " EXPLAINED VARIANCE"),
-                 style = "unite",
-                 color = "primary",
-                 size = "sm",
-                 block = FALSE,
-                 no_outline = TRUE,
-                 icon = shiny::icon("download")
-               ),
-
-
-             ) # close drop menu
-
-
-      ) # close column
-
-    ) # close fluidrow
-
-
-  ), # close conditional panel
-
-), # sidebar panel
-
-##  MAIN PANEL ##
-
-mainPanel(
-  tabsetPanel(
-    id = "panel",
-
-    ## MAIN PANEL  1 ##
-    tabPanel(
-
-      # h4("INTRODUCTION"),
-
-
-      h4(id="a", "INTRODUCTION"),
-
-
-      value = 0,
-      br(),
-      br(),
-      br(),
+    ## PANEL 3 - NUMBER OF FACTORS ##
+    conditionalPanel(
+      condition = "input.panel==2",
+      shiny::img(src = "img/fa1.png", width = "97%"),
 
       ###################################################################
-      imageOutput("image0",width = "15%", height = "50px", inline = TRUE),
+      #imageOutput("image3",width = "15%", height = "50px", inline = TRUE),
       ###################################################################
+      br(),
+      br(),
+
+      shinyWidgets::chooseSliderSkin("Big", color = "#112446"),
+      uiOutput("factornumber"),
+      br(),
+      br(),
+
+      shinyWidgets::dropMenu(
+
+        padding = "20px",
+
+        theme="light-border",
+
+        placement = "right-end",
+
+        shinyWidgets::actionBttn(
+          inputId = "korfak",
+          label = "CLICK TO SEE CORRELATIONS AMONG THE FACTORS",
+          style = "jelly",
+          color = "primary"
+
+        ),
+
+        gt::gt_output("fakor"),
+
+      ),
+
+      br(),
+      br(),
+
+      shinyWidgets::pickerInput(
+        inputId = "rotation",
+        label = h3(id="ab","Select Rotation Method"),
+        choices = list(
+          "Varimax" = "varimax",
+          "Direct Oblimin" = "oblimin",
+          "No Rotation" = "none"
+        ),
+        selected = "none",
+        options =  shinyWidgets::pickerOptions(showTick=TRUE,
+        ),#style = "btn-primary"),
+      ),
+      br(),
+      br(),
+      shinyWidgets::pickerInput(
+        inputId = "fm",
+        label = h3(id="ab","Factor Extraction Method"),
+        choices = list(
+          "Principal Axis" = "pa",
+          "Maximum Likelihood" = "ml",
+          "Weighted Least Squares" = "wls",
+          "Unweighted Least Squares" = "uls"
+        ),
+        selected = "pa",
+        options =  shinyWidgets::pickerOptions(showTick=TRUE,
+        ),#style = "btn-primary"),
+      ),
+    ),
+
+    ## PANEL 4 - FACTOR LOADINGS ##
+    conditionalPanel(
+      condition = "input.panel==3",
+      shiny::img(src = "img/fa1.png", width = "97%"),
+
+      ###################################################################
+      #imageOutput("image4",width = "15%", height = "50px", inline = TRUE),
+      ###################################################################
+
+      #  br(),
+
+      gt::gt_output("KMo"),
+      br(),
 
       fluidRow(
-        column(
-          12,
-          align = "center",
-          shiny::img(src = "img/rsp1.png", width = "97%")
+
+        column( 3 ),
+        column( 9,
+
+                uiOutput("remove_item")) ),
+      # br(),
+
+      uiOutput("select_item"),
+
+      # ##################### NEW KMO 1 #################
+
+      br(),
+
+
+      sliderInput(
+        "cut_off",
+        h3(id="ab","Select cut-off value for Factor Loadings"),
+        min = 0.25,
+        max = 0.60,
+        step = 0.05,
+        value = 0.30
+      ),
+
+
+      br(),
+
+      fluidRow(
+
+        column(6,
+
+               shinyWidgets::dropMenu(
+
+                 padding = "20px",
+
+                 theme="light-border",
+
+                 placement = "right-end",
+
+
+                 shinyWidgets::actionBttn(
+                   inputId = "coms",
+                   label = "CLICK TO SEE COMMUNALITIES",
+                   style = "jelly",
+                   color = "primary"
+
+                 ),
+
+
+                 DT::DTOutput("commons"),
+
+               ),
+
+
+        ), # close column
+
+
+
+        column(6,
+
+               shinyWidgets::dropMenu(
+
+                 padding = "20px",
+
+                 theme="light-border",
+
+                 placement = "right-end",
+
+                 shinyWidgets::actionBttn(
+                   inputId = "acb1",
+                   label = "CLICK TO  SEE DOWNLOADS",
+                   style = "jelly",
+                   color = "primary"
+
+                 ),
+
+
+                 shinyWidgets::downloadBttn(
+                   "factorDownload",
+                   label = h1(id="b", "FACTOR LOADINGS"),
+                   style = "unite",
+                   color = "primary",
+                   size = "sm",
+                   block = FALSE,
+                   no_outline = TRUE,
+                   icon = shiny::icon("download")
+                 ),
+
+
+                 br(),
+                 br(),
+
+
+                 shinyWidgets::downloadBttn(
+                   "varianceDownload",
+                   label = h1(id="b", " EXPLAINED VARIANCE"),
+                   style = "unite",
+                   color = "primary",
+                   size = "sm",
+                   block = FALSE,
+                   no_outline = TRUE,
+                   icon = shiny::icon("download")
+                 ),
+
+
+               ) # close drop menu
+
+
+        ) # close column
+
+      ) # close fluidrow
+
+
+
+    ), # close conditional panel
+
+  ), # sidebar panel
+
+  ##  MAIN PANEL ##
+
+  mainPanel(
+    tabsetPanel(
+      id = "panel",
+
+      ## MAIN PANEL  1 ##
+      tabPanel(
+
+        # h4("INTRODUCTION"),
+
+
+        h4(id="a", "INTRODUCTION"),
+
+
+        value = 0,
+        br(),
+        br(),
+        br(),
+
+        ###################################################################
+        #imageOutput("image0",width = "15%", height = "50px", inline = TRUE),
+        ###################################################################
+
+        fluidRow(
+          column(
+            12,
+            align = "center",
+            shiny::img(src = "img/fa1.png", width = "97%")
+          )
         )
-      )
-    ),
+      ),
 
-    ##  MAIN PANEL 2 ##
-    tabPanel(
-      # h4( "DATA UPLOAD"),
+      ##  MAIN PANEL 2 ##
+      tabPanel(
+        # h4( "DATA UPLOAD"),
 
-      h4(id="a", "DATA UPLOAD"),
-      value = 1,
-      textOutput("text1"),
-      tags$head(
-        tags$style(
-          "#text1{
+        h4(id="a", "DATA UPLOAD"),
+        value = 1,
+        textOutput("text1"),
+        tags$head(
+          tags$style(
+            "#text1{
             color: darkblue;
             font-size: 25px;
             font-family: cursive;
@@ -587,19 +594,19 @@ mainPanel(
             text-align:center;
             letter-spacing:1px;
             }"
-        )
-      ),
-      br(),
-      withLoader(
-        DT::dataTableOutput("dat1"),
-        type = "html",
-        loader = "loader1"
-      ),
-      br(),
-      textOutput("text1_1"),
-      tags$head(
-        tags$style(
-          "#text1_1{
+          )
+        ),
+        br(),
+        withLoader(
+          DT::dataTableOutput("dat1"),
+          type = "html",
+          loader = "loader1"
+        ),
+        br(),
+        textOutput("text1_1"),
+        tags$head(
+          tags$style(
+            "#text1_1{
             color: darkblue;
             font-size: 25px;
             font-family: cursive;
@@ -607,25 +614,25 @@ mainPanel(
             text-align:center;
             letter-spacing:1px;
             }"
-        )
+          )
+        ),
+        br(),
+        gt::gt_output("dat2"),
+        br(),
+        gt::gt_output("dat4"),
       ),
-      br(),
-      gt::gt_output("dat2"),
-      br(),
-      gt::gt_output("dat4"),
-    ),
 
-    ## MAIN PANEL 3 ##
-    tabPanel(
-      # h4("DETERMINING THE NUMBER OF FACTORS"),
+      ## MAIN PANEL 3 ##
+      tabPanel(
+        # h4("DETERMINING THE NUMBER OF FACTORS"),
 
-      h4(id="a", "DETERMINING THE NUMBER OF FACTORS"),
+        h4(id="a", "DETERMINING THE NUMBER OF FACTORS"),
 
-      value = 2,
-      textOutput("text2"),
-      tags$head(
-        tags$style(
-          "#text2{
+        value = 2,
+        textOutput("text2"),
+        tags$head(
+          tags$style(
+            "#text2{
             color: darkblue;
             font-size: 25px;
             font-family: cursive;
@@ -633,28 +640,28 @@ mainPanel(
             text-align:center;
             letter-spacing:1px;
             }"
-        )
+          )
+        ),
+        br(),
+        br(),
+        withLoader(plotOutput("scree_plot"), type = "html", loader = "loader1"),
+
+        br(),
+        gt::gt_output("eigen_value"),
+        br()
       ),
-      br(),
-      br(),
-      withLoader(plotOutput("scree_plot"), type = "html", loader = "loader1"),
 
-      br(),
-      gt::gt_output("eigen_value"),
-      br()
-    ),
+      ## MAIN PANEL 4 ##
+      tabPanel(
 
-    ## MAIN PANEL 4 ##
-    tabPanel(
+        # h4( "FACTOR LOADINGS AND EXPLAINED VARIANCE"),
 
-      # h4( "FACTOR LOADINGS AND EXPLAINED VARIANCE"),
-
-      h4 (id="a", "FACTOR LOADINGS AND EXPLAINED VARIANCE"),
-      value = 3,
-      textOutput("text2_1"),
-      tags$head(
-        tags$style(
-          "#text2_1{
+        h4 (id="a", "FACTOR LOADINGS AND EXPLAINED VARIANCE"),
+        value = 3,
+        textOutput("text2_1"),
+        tags$head(
+          tags$style(
+            "#text2_1{
             color: darkblue;
             font-size: 25px;
             font-family: cursive;
@@ -662,29 +669,26 @@ mainPanel(
             text-align:center;
             letter-spacing:1px;
             }"
-        )
+          )
+        ),
+        gt::gt_output("tableFactor"),
+        gt::gt_output("buton"),
+        br(),
+        gt::gt_output("tableEigen"),
+        gt::gt_output("buton2"),
+        br(),
+
+
+
+
+
+
+
+
       ),
 
-      br(),
-
-      gt::gt_output("tableFactor"),
-      gt::gt_output("buton"),
-      br(),
-      gt::gt_output("tableEigen"),
-      gt::gt_output("buton2"),
-      br(),
-
-
-
-
-
-
-
-
-    ),
-
-  ) # close tabsetpanel
-) #  close mainpanel
+    ) # close tabsetpanel
+  ) #  close mainpanel
   ) #  close fluidpage
 
 
@@ -693,54 +697,12 @@ mainPanel(
   server <- function(input, output, session) {
 
 
-    #### ALERTS ###
-
-    # observeEvent(input$korfak, {
-    #   show_alert(
-    #     title = "NEXT !!",
-    #     text = "SELECT APPROPRIATE ROTATION METHOD!",
-    #     type = "warning "
-    #   )
-    # })
-    #
-
-    # observeEvent(input$fak2, {
-    #
-    #   req(input$fak2!=1)
-    #
-    #   show_alert(
-    #     title = "NEXT !!",
-    #     text = "CHECK CORRELATIONS AMONG FACTORS!",
-    #     type = "warning ",
-    #     btn_colors = "#3085d6"
-    #   )
-    # })
-
-
-
-
-    # observeEvent(input$rotation, {
-    #
-    #
-    #   req(input$rotation!="none")
-    #
-    #   show_alert(
-    #     title = "GO FOR THE NEXT PANEL!!",
-    #     text = "NOW CHECK THE FACTOR LOADINGS",
-    #     type = "warning "
-    #   )
-    # })
-    #
-
-
-    ######
-
     shinyjs::addCssClass(class = "bttn bttn-unite bttn-default bttn-no-outline",
                 selector = ".btn-file")
 
     observeEvent(input$myColor,{
 
-      output$cols<- renderUI({   # WIDET RENDER UI RENK DEĞİŞİMİ
+      output$cols<- renderUI({   # WIDGET RENDER UI COLOR CHANGER
 
         bbb<-input$myColor
 
@@ -750,14 +712,6 @@ mainPanel(
           direction = c("bottom", "right")
         )})
     })
-
-
-    # utils::globalVariables(c("."))
-
-    # if(getRversion() >= "2.15.1")  utils::globalVariables(c("factor1", "othervar"))
-
-    #  if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))
-
 
     output$browser <- renderText({
       req(input$myBrowser)
@@ -772,41 +726,41 @@ mainPanel(
 
     output$image0<- renderImage({
       resim2 <- tempfile(fileext = '.png')
-      list(src = "rsp1.png", contentType = "image/png")
+      list(src = "fa1.png", contentType = "image/png")
     },
     deleteFile = FALSE)
 
 
     output$image1<- renderImage({
       resim2 <- tempfile(fileext = '.png')
-      list(src = "rsp1.png", contentType = "image/png")
+      list(src = "fa1.png", contentType = "image/png")
     },
     deleteFile = FALSE)
 
 
     output$image2<- renderImage({
       resim2 <- tempfile(fileext = '.png')
-      list(src = "rsp1.png", contentType = "image/png")
+      list(src = "fa1.png", contentType = "image/png")
     },
     deleteFile = FALSE)
 
 
     output$image3<- renderImage({
       resim2 <- tempfile(fileext = '.png')
-      list(src = "rsp1.png", contentType = "image/png")
+      list(src = "fa1.png", contentType = "image/png")
     },
     deleteFile = FALSE)
 
     output$image4<- renderImage({
       resim2 <- tempfile(fileext = '.png')
-      list(src = "rsp1.png", contentType = "image/png")
+      list(src = "fa1.png", contentType = "image/png")
     },
     deleteFile = FALSE)
 
 
     output$image5<- renderImage({
       resim2 <- tempfile(fileext = '.png')
-      list(src = "rsp1.png", contentType = "image/png")
+      list(src = "fa1.png", contentType = "image/png")
     },
     deleteFile = FALSE)
 
@@ -818,15 +772,6 @@ mainPanel(
 
     ###########################################################################
 
-    # observeEvent(input$data1, {
-    #   show_alert(
-    #     title = "Success !!",
-    #     text = "DATA WAS UPLOADED",
-    #     type = "success"
-    #   )
-    # })
-
-    ###########################################################################
     ##  DATA UPLOAD ##
     output$uiHeader <- renderUI({
       if (input$type2 == 3) {
@@ -839,6 +784,12 @@ mainPanel(
           value = TRUE,
           status = "primary"
         )
+        # switchInput(inputId = "header",
+        #             label =  " Is the first line include the variable name?",
+        #             onLabel = "YES",
+        #             offLabel = "NO",
+        #             value = TRUE,
+        #             inline = TRUE)
       }
     })
 
@@ -921,6 +872,8 @@ mainPanel(
         size = "lg",
         color = "primary", no_outline = TRUE
       )
+
+
     })
 
     ##  TEXTS FOR MAIN PANELS ##
@@ -1149,8 +1102,9 @@ mainPanel(
           cor_matrix <- stats::cor(data)
 
           model1 <-
-            principal(cor_matrix,
+            psych::fa(r = cor_matrix,
                       nfactors = ncol(data),
+                      n.obs = nrow(data),
                       rotate = "none"
             )
         }
@@ -1159,8 +1113,9 @@ mainPanel(
           tet_matrix <- tetrachoric(data)$rho
 
           model1 <-
-            principal(tet_matrix,
+            psych::fa(r = tet_matrix,
                       nfactors = ncol(data),
+                      n.obs = nrow(data),
                       rotate = "none"
             )
         }
@@ -1214,16 +1169,18 @@ mainPanel(
         if (input$type == 1) {
           cor_matrix <- stats::cor(data)
           model1 <-
-            principal(cor_matrix,
+            psych::fa(r = cor_matrix,
                       nfactors = ncol(data),
+                      n.obs = nrow(data),
                       rotate = "none"
             )
         } else {
           tet_matrix <- tetrachoric(data)$rho
 
           model1 <-
-            principal(tet_matrix,
+            psych::fa(r = tet_matrix,
                       nfactors = ncol(data),
+                      n.obs = nrow(data),
                       rotate = "none"
             )
         }
@@ -1237,8 +1194,8 @@ mainPanel(
           reps = 200
         )
         PA_MEAN <- horn$Mean
-        COMPONENT <- 1:ncol(data)
-        res <- data.frame(COMPONENT, PA_MEAN, EIGENVALUE = eigenvalue)
+        FACTOR <- 1:ncol(data)
+        res <- data.frame(FACTOR, PA_MEAN, EIGENVALUE = eigenvalue)
 
         res <- gt::gt(res)
         res <- res %>%
@@ -1287,15 +1244,19 @@ mainPanel(
         data <- na.omit(data())
         if (input$type == 1) {
           cor_matrix <- stats::cor(data)
-          model1 <- principal(cor_matrix,
+          model1 <- psych::fa(r = cor_matrix,
                               nfactors = input$fak2,
-                              rotate = "oblimin"
+                              n.obs = nrow(data),
+                              rotate = input$rotation,
+                              fm = input$fm
           )
         } else {
           tet_matrix <- tetrachoric(data)$rho
-          model1 <- principal(tet_matrix,
+          model1 <- psych::fa(r = tet_matrix,
                               nfactors = input$fak2,
-                              rotate = "oblimin"
+                              n.obs = nrow(data),
+                              rotate = input$rotation,
+                              fm = input$fm
           )
         }
 
@@ -1345,23 +1306,27 @@ mainPanel(
           cor_matrix <- stats::cor(data)
 
 
-          result <- principal(cor_matrix,
+          result <- psych::fa(r = cor_matrix,
                               nfactors = input$fak2,
-                              rotate = input$rotation
+                              n.obs = nrow(data),
+                              rotate = input$rotation,
+                              fm = input$fm
           )
         } else {
           tet_matrix <- tetrachoric(data)$rho
 
 
-          result <- principal(tet_matrix,
+          result <- psych::fa(r = tet_matrix,
                               nfactors = input$fak2,
-                              rotate = input$rotation
+                              n.obs = nrow(data),
+                              rotate = input$rotation,
+                              fm = input$fm
           )
         }
 
         common<- result$communality
 
-        PCA_ENV$common<-common
+        FA_ENV$common<-common
 
         eigenvalue <- unname(result$Vaccounted[1, ])
 
@@ -1379,7 +1344,7 @@ mainPanel(
           if (input$type == 2) {
             empty_mat <- as.matrix(result$loadings[1:total])
           } else {
-            empty_mat <- as.matrix(result[[5]][1:total])
+            empty_mat <- as.matrix(result$loadings[1:total])
           }
         } else {
           if (input$type == 1) {
@@ -1387,7 +1352,7 @@ mainPanel(
               if (input$type == 2) {
                 empty_mat[i] <- as.matrix(result$loadings[i:total])
               } else {
-                empty_mat[i] <- result[[5]][i:total]
+                empty_mat[i] <- result$loadings[i:total]
               }
             }
           } else {
@@ -1415,7 +1380,7 @@ mainPanel(
 
         fload <- as.data.frame(fload)
 
-        PCA_ENV$factorLoading <- fload
+        FA_ENV$factorLoading <- fload
 
         fload <- gt::gt(fload)
 
@@ -1891,17 +1856,22 @@ mainPanel(
       if (input$type == 1) {
         cor_matrix <- stats::cor(data1)
 
-        result <- principal(cor_matrix,
+        result <- psych::fa(r = cor_matrix,
                             nfactors = input$fak2,
-                            rotate = input$rotation
+                            n.obs = nrow(data),
+                            rotate = input$rotation,
+                            fm = input$fm
         )
       } else {
         tet_matrix <- tetrachoric(data1)$rho
 
 
-        result <- principal(tet_matrix,
+        result <- psych::fa(r = tet_matrix,
                             nfactors = input$fak2,
-                            rotate = input$rotation)
+                            n.obs = nrow(data),
+                            rotate = input$rotation,
+                            fm = input$fm
+        )
       }
 
       common<- result$communality
@@ -1922,16 +1892,20 @@ mainPanel(
         if (input$type == 1) {
           cor_matrix <- stats::cor(data)
 
-          result <- principal(cor_matrix,
+          result <- psych::fa(r = cor_matrix,
                               nfactors = input$fak2,
-                              rotate = input$rotation
+                              n.obs = nrow(data),
+                              rotate = input$rotation,
+                              fm = input$fm
           )
         } else {
           tet_matrix <- tetrachoric(data)$rho
 
-          result <- principal(tet_matrix,
+          result <- psych::fa(r = tet_matrix,
                               nfactors = input$fak2,
-                              rotate = input$rotation
+                              n.obs = nrow(data),
+                              rotate = input$rotation,
+                              fm = input$fm
           )
         }
 
@@ -1972,7 +1946,7 @@ mainPanel(
 
 
     output$tableEigen <- render_gt(align = "center", {
-      PCA_ENV$explainedVar <- add()
+      FA_ENV$explainedVar <- add()
 
       add <- gt::gt(add())
 
@@ -2028,17 +2002,21 @@ mainPanel(
         remainCorMatrix <- stats::cor(remainData())
 
         modelRemain <-
-          principal(remainCorMatrix,
+          psych::fa(r = remainCorMatrix,
                     nfactors = input$fak2,
-                    rotate = input$rotation
+                    n.obs = nrow(remainData()),
+                    rotate = input$rotation,
+                    fm = input$fm
           )
       } else {
         remainTetMatrix <- tetrachoric(remainData())$rho
 
         modelRemain <-
-          principal(remainTetMatrix,
+          psych::fa(r = remainTetMatrix,
                     nfactors = input$fak2,
-                    rotate = input$rotation
+                    n.obs = nrow(remainData()),
+                    rotate = input$rotation,
+                    fm = input$fm
           )
       }
     })
@@ -2132,7 +2110,7 @@ mainPanel(
           }
         } else {
           for (i in 1:remainTotal) {
-            remainEmpty[i] <- model_removed()[[5]][i]
+            remainEmpty[i] <- model_removed()$loadings[i]
           }
         }
 
@@ -2162,7 +2140,7 @@ mainPanel(
 
         floadRemain <- as.data.frame(floadRemain)
 
-        PCA_ENV$factorLoadRemain <- floadRemain
+        FA_ENV$factorLoadRemain <- floadRemain
         floadRemain <- gt::gt(floadRemain)
 
 
@@ -2678,7 +2656,7 @@ mainPanel(
 
 
           # gt table modifying 2
-          PCA_ENV$explainedVarRemain <- ad.var.2()
+          FA_ENV$explainedVarRemain <- ad.var.2()
           ad.var.2 <- gt::gt(ad.var.2())
 
           ad.var.2 <- ad.var.2 %>% tab_header(
@@ -2725,9 +2703,9 @@ mainPanel(
       },
       content = function(file) {
         if (is.null(input$grafmad)) {
-          utils::write.csv2(PCA_ENV$factorLoading, file)
+          utils::write.csv2(FA_ENV$factorLoading, file)
         } else {
-          utils::write.csv2(PCA_ENV$factorLoadRemain, file)
+          utils::write.csv2(FA_ENV$factorLoadRemain, file)
         }
       }
     )
@@ -2735,13 +2713,13 @@ mainPanel(
     output$varianceDownload <- downloadHandler(
 
       filename = function() {
-        "varyans.csv"
+        "variance.csv"
       },
       content = function(file) {
         if (is.null(input$grafmad)) {
-          utils::write.csv2(PCA_ENV$explainedVar, file)
+          utils::write.csv2(FA_ENV$explainedVar, file)
         } else {
-          utils::write.csv2(PCA_ENV$explainedVarRemain, file)
+          utils::write.csv2(FA_ENV$explainedVarRemain, file)
         }
       }
     )
@@ -2752,6 +2730,9 @@ mainPanel(
 
     EIGENVALUE <- factor1 <- factor2 <- factor3 <- factor4 <- factor5 <- factor6 <- factor7 <- NULL
   }
+
+
+
 
   shinyApp(ui = ui, server = server)
 }
