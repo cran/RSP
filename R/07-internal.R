@@ -114,7 +114,7 @@ INTERNAL <- function(){
   omega<- function(data, nfactor){
     suppressWarnings({
       i <- ncol(data)
-      omega.g <- suppressMessages ( psych ::omega(data,nfactor,ply=T,rotate="oblimin",fm="minres", digits = 3,sl=T)
+      omega.g <- suppressMessages ( psych ::omega(data,nfactor,ply=TRUE,rotate="oblimin",fm="minres", digits = 3,sl=TRUE)
       )
     })
     result <- data.frame( I=i, omega=round(omega.g$omega.tot,nfactor) )

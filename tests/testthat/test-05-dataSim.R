@@ -1,3 +1,4 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("SIMDATA function exists and is a function", {
+  expect_true(exists("SIMDATA"))
+  expect_type(SIMDATA, "closure")
 })

@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -8,32 +8,32 @@ knitr::opts_chunk$set(
 library(RSP)
 
 ## ----eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE----
-#  library(RSP)
-#  
-#  ITEMAN()
-#  
+# library(RSP)
+# 
+# ITEMAN()
+# 
 
 ## ----eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE----
-#  library(RSP)
-#  
-#  IRT()
-#  
+# library(RSP)
+# 
+# IRT()
+# 
 
 ## ----eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE----
-#  library(RSP)
-#  
-#  PCA()
-#  
+# library(RSP)
+# 
+# PCA()
+# 
 
 ## ----eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE----
-#  library(RSP)
-#  
-#  CFA()
-#  
+# library(RSP)
+# 
+# CFA()
+# 
 
 ## ----eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE----
-#  library(RSP)
-#  
-#  SIMDATA()
-#  
+# library(RSP)
+# 
+# SIMDATA()
+# 
 

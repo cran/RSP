@@ -1502,7 +1502,7 @@ mainPanel(
 
                          incProgress(1/input$rep)
 
-                         write.xlsx(SIMDATA_ENV$simDataDichotom[i], file=file, sheetName=paste(i), append=T)
+                         write.xlsx(SIMDATA_ENV$simDataDichotom[i], file=file, sheetName=paste(i), append=TRUE)
                        }   } )
       }
     )
@@ -1533,7 +1533,7 @@ mainPanel(
 
                          incProgress(1/input$polyrep)
 
-                         write.xlsx(liste[i], file=file, sheetName=paste(i), append=T)
+                         write.xlsx(liste[i], file=file, sheetName=paste(i), append=TRUE)
                        } })
       }
 
@@ -1572,7 +1572,7 @@ mainPanel(
                        Sys.sleep(0.25)
                        for (i in 1:input$frep){
                          incProgress(1/input$frep)
-                         write.xlsx( datA[i], file=file, sheetName=paste(i), append=T)
+                         write.xlsx( datA[i], file=file, sheetName=paste(i), append=TRUE)
                        }})
       }
     )

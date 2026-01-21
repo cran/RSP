@@ -1106,16 +1106,18 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
         data<-data()
 
-        hz<-mvn(data=data,mvnTest = "hz")
+        hz<-mvn(data=data, mvn_test = "hz")
 
-        hz<-hz$multivariateNormality
+        hz<-hz$multivariate_normality
 
-        colnames(hz)<-c("Test","Hz","P_value", "Result")
+        # Select and rename relevant columns for display
+        hz <- hz[, c("Test", "Statistic", "p.value", "MVN")]
+        colnames(hz) <- c("Test", "HZ Statistic", "P-value", "Result")
 
         hz<-gt::gt(hz)
 
         hz<-hz  %>%    tab_header(
-          title= md("*Henze Zirkler Multivariate Nomality Test*"))
+          title= md("*Henze Zirkler Multivariate Normality Test*"))
 
         hz<-hz %>%
 
@@ -1156,18 +1158,18 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
         data<-data()
 
-        mrd<-mvn(data=data,mvnTest = "mardia")
+        mrd<-mvn(data=data, mvn_test = "mardia")
 
-        mrd<-mrd$multivariateNormality
+        mrd<-mrd$multivariate_normality
 
-        colnames(mrd)<-c("Test", "Statistic","p_value", "Reult")
-
-        mrd<-mrd[-3,]
+        # Select and rename relevant columns for display
+        mrd <- mrd[, c("Test", "Statistic", "p.value", "MVN")]
+        colnames(mrd) <- c("Test", "Statistic", "P-value", "Result")
 
         mrd<-gt::gt(mrd)
 
         mrd<-mrd  %>%    tab_header(
-          title= md("*Mardia Multivariate Nomality Test*"))
+          title= md("*Mardia Multivariate Normality Test*"))
 
         mrd<-mrd %>%
 
