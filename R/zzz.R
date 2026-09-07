@@ -12,3 +12,8 @@
 .onUnload <- function(libname, pkgname) {
   shiny::removeResourcePath("img")
 }
+
+utils::globalVariables(c(
+  "Bartlett_Interpretation", "Category", "Correct", "KMO_Interpretation",
+  "MSA", "Option", "Rate", "Result", "Statistic", "Statistics"
+))

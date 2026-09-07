@@ -33,6 +33,73 @@ $(document).on('shiny:sessioninitialized', function(event) {
   Shiny.onInputChange('myBrowser', navigator.sayswho);
 });
 "
+
+  irtInfoCard <- function(mode = "compact") {
+    is_hero <- identical(mode, "hero")
+    is_sidebar <- identical(mode, "sidebar-mini")
+
+    if (is_sidebar) {
+      return(
+        shiny::div(
+          class = "irt-sidebar-simple",
+          shiny::div(
+            class = "irt-sidebar-content",
+            shiny::div(
+              class = "irt-sidebar-package",
+              shiny::span(class = "irt-sidebar-mark"),
+              shiny::span("RSP Package")
+            ),
+            shiny::div(
+              class = "irt-sidebar-lines",
+              shiny::div("ITEM RESPONSE"),
+              shiny::div("THEORY - CLICK MODE")
+            )
+          ),
+          shiny::div(class = "irt-sidebar-credit", "Dogan & Aybek (2022)")
+        )
+      )
+    }
+
+    if (is_hero) {
+      return(
+        shiny::div(
+          class = "irt-hero",
+          shiny::div(
+            class = "irt-left",
+            shiny::div(
+              class = "irt-brand",
+              shiny::div(
+                class = "irt-logo",
+                shiny::span("R-Shiny"),
+                shiny::tags$b("RSP"),
+                shiny::span("Package")
+              ),
+              shiny::div(
+                class = "irt-brand-text",
+                shiny::div(class = "irt-package", "RSP Package"),
+                shiny::div(class = "irt-domain", "R-Shiny ", shiny::tags$b("*"), " Psychometry")
+              )
+            ),
+            shiny::h2(
+              class = "irt-main-title",
+              shiny::span(class = "irt-title-top", "ITEM RESPONSE THEORY"),
+              shiny::span(class = "irt-title-sub", "CALIBRATION * MODEL FIT * TEST INFORMATION")
+            )
+          ),
+          shiny::div(
+            class = "irt-bottom",
+            shiny::div(class = "irt-feature", shiny::div(class = "irt-icon gauge"), shiny::span("CALIBRATION")),
+            shiny::div(class = "irt-feature", shiny::div(class = "irt-icon bars", shiny::span(), shiny::span(), shiny::span()), shiny::span("MODEL FIT")),
+            shiny::div(class = "irt-feature", shiny::div(class = "irt-icon line"), shiny::span("ICC / IIF"))
+          ),
+          shiny::div(class = "irt-credit", "Dogan & Aybek (2022)")
+        )
+      )
+    }
+
+    shiny::div()
+  }
+
   # Define UI for application
   ui <- fluidPage(
     shinyjs::useShinyjs(),
@@ -66,6 +133,13 @@ $(document).on('shiny:sessioninitialized', function(event) {
   border-top: 2px solid white;
 
 }
+      .dropdown-menu > li > a,
+      .dropdown-menu > li > a *,
+      .bootstrap-select .dropdown-menu li a,
+      .bootstrap-select .dropdown-menu li a *,
+      .bootstrap-select .dropdown-menu li a span.text,
+      .bootstrap-select .dropdown-menu .text,
+      .bootstrap-select .dropdown-menu .glyphicon { color:#111111 !important; }
         #tepe{
   border-bottom: 3px solid black;
   }
@@ -125,6 +199,70 @@ tags$style(HTML("#ab{color:black; font-family:Lucida Arial ;font-size: 20px;
 
 tags$style(HTML("#b{color:blcak; font-family: cursive;font-size: 15px;
             font-style: oblique;text-align:center}")), # download #
+
+tags$head(tags$style(HTML("\
+      :root { --irt-theme: #1f6fb2; }
+      .irt-sidebar-simple, .irt-sidebar-simple * { box-sizing:border-box; }
+      .irt-sidebar-simple {
+        width:100%; height:154px; min-height:154px; max-height:154px;
+        margin:2px 0 16px 0; position:relative; overflow:hidden;
+        border-radius:17px; padding:13px 14px;
+        background:linear-gradient(135deg, #ffffff 0%, color-mix(in srgb, var(--irt-theme) 6%, #ffffff) 62%, color-mix(in srgb, var(--irt-theme) 12%, #ffffff) 100%);
+        border:1px solid color-mix(in srgb, var(--irt-theme) 18%, #ffffff);
+        box-shadow:0 10px 26px rgba(18, 34, 62, .08);
+        color:#102242;
+      }
+      .irt-sidebar-simple:before { content:''; position:absolute; right:-42px; bottom:-68px; width:150px; height:122px; border-radius:58% 42% 0 0; background:linear-gradient(135deg, color-mix(in srgb, var(--irt-theme) 22%, #ffffff), var(--irt-theme)); opacity:.55; transform:rotate(-8deg); }
+      .irt-sidebar-simple:after { content:''; position:absolute; right:10px; top:9px; width:46px; height:46px; background-image:radial-gradient(var(--irt-theme) 1.6px, transparent 2px); background-size:12px 12px; opacity:.18; }
+      .irt-sidebar-content { position:relative; z-index:2; }
+      .irt-sidebar-package { display:inline-flex; align-items:center; gap:6px; max-width:100%; padding:4px 8px; border-radius:999px; background:rgba(255,255,255,.72); border:1px solid color-mix(in srgb, var(--irt-theme) 18%, #ffffff); color:#16325c; font-size:11px; font-weight:850; letter-spacing:.15px; }
+      .irt-sidebar-mark { width:13px; height:13px; border-radius:4px; flex:0 0 13px; background:linear-gradient(135deg, var(--irt-theme), color-mix(in srgb, var(--irt-theme) 48%, #ffffff)); position:relative; }
+      .irt-sidebar-mark:after { content:''; position:absolute; inset:3.5px; border:1.3px solid #fff; border-radius:2.5px; }
+      .irt-sidebar-lines { margin-top:6px; gap:2px; max-width:100%; display:grid; }
+      .irt-sidebar-lines div { font-size:10.4px; line-height:1.12; letter-spacing:.25px; font-weight:900; }
+      .irt-sidebar-lines div:nth-child(2) { color:var(--irt-theme); }
+      .irt-sidebar-credit { position:absolute; left:12px; right:auto; bottom:8px; max-width:calc(100% - 24px); color:color-mix(in srgb, var(--irt-theme) 72%, #17213d); font-size:9.6px; font-weight:800; letter-spacing:.1px; }
+
+      .irt-hero, .irt-hero * { box-sizing:border-box; }
+      .irt-hero {
+        width:97%; min-height:340px; margin:0 auto 16px auto;
+        position:relative; overflow:hidden; border-radius:22px;
+        padding:28px 34px 28px 34px;
+        background:
+          radial-gradient(circle at 88% 92%, color-mix(in srgb, var(--irt-theme) 16%, transparent) 0, transparent 33%),
+          linear-gradient(135deg, #ffffff 0%, color-mix(in srgb, var(--irt-theme) 5%, #ffffff) 62%, color-mix(in srgb, var(--irt-theme) 11%, #ffffff) 100%);
+        border:1px solid color-mix(in srgb, var(--irt-theme) 18%, #ffffff);
+        box-shadow:0 18px 42px rgba(22,24,44,.09);
+        color:#07183f;
+      }
+      .irt-hero:after { content:''; position:absolute; right:22px; top:18px; width:62px; height:62px; background-image:radial-gradient(var(--irt-theme) 1.8px, transparent 2.3px); background-size:14px 14px; opacity:.20; }
+      .irt-left { position:relative; z-index:2; width:100%; min-width:0; max-width:100%; padding-top:0; }
+      .irt-brand { display:flex; align-items:center; gap:18px; margin-bottom:8px; }
+      .irt-logo { width:76px; height:76px; display:flex; flex-direction:column; align-items:center; justify-content:center; clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%); border:3px solid var(--irt-theme); background:rgba(255,255,255,.68); color:#07183f; font-weight:900; line-height:1.06; box-shadow:0 10px 24px rgba(22,24,44,.08); }
+      .irt-logo b { color:var(--irt-theme); font-size:23px; letter-spacing:-.8px; }
+      .irt-logo span { font-size:9.5px; }
+      .irt-brand-text { border-left:1px solid rgba(80,80,120,.18); padding-left:20px; }
+      .irt-package { font-size:20px; font-weight:900; margin-bottom:8px; }
+      .irt-domain { font-size:15px; color:#59627c; font-weight:650; }
+      .irt-main-title { max-width:100%; text-align:center; font-size:clamp(32px, 4.4vw, 24px); line-height:1.06; letter-spacing:-1.1px; margin-top:4px; }
+      .irt-main-title .irt-title-top { display:block; color:#07183f; }
+      .irt-main-title .irt-title-sub { display:block; text-align:center; margin-top:8px; color:var(--irt-theme); font-size:.68em; letter-spacing:.5px; line-height:1.18; }
+      .irt-bottom { position:relative; left:auto; right:auto; transform:none; width:100%; height:86px; margin-top:16px; display:flex; justify-content:space-around; align-items:center; background:rgba(255,255,255,.68); border:1px solid rgba(90,80,130,.16); border-radius:16px; }
+      .irt-feature { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#07183f; font-size:11px; font-weight:900; flex:1 1 33.33%; border-right:1px solid rgba(80,80,120,.12); }
+      .irt-feature:last-child { border-right:0; }
+      .irt-icon { width:26px; height:22px; position:relative; }
+      .irt-icon.gauge { border:2px solid var(--irt-theme); border-radius:12px 12px 3px 3px; }
+      .irt-icon.gauge:before { content:''; position:absolute; left:4px; right:4px; bottom:3px; height:2px; background:var(--irt-theme); }
+      .irt-icon.gauge:after { content:''; position:absolute; left:12px; top:6px; width:2px; height:9px; background:var(--irt-theme); transform-origin:bottom center; transform:rotate(35deg); }
+      .irt-icon.bars { border-left:3px solid var(--irt-theme); }
+      .irt-icon.bars span { position:absolute; bottom:0; width:3px; background:var(--irt-theme); border-radius:2px; }
+      .irt-icon.bars span:nth-child(1){left:6px;height:6px}.irt-icon.bars span:nth-child(2){left:12px;height:12px}.irt-icon.bars span:nth-child(3){left:18px;height:18px}
+      .irt-icon.line { border-bottom:3px solid var(--irt-theme); }
+      .irt-icon.line:before { content:''; position:absolute; left:4px; right:4px; top:50%; width:18px; height:3px; background:var(--irt-theme); border-radius:2px; transform:rotate(-35deg) translateY(-50%); }
+      .irt-icon.line:after { content:''; position:absolute; left:2px; top:50%; width:6px; height:6px; border-radius:50%; background:var(--irt-theme); transform:translateY(-50%); }
+      .irt-credit { position:absolute; right:32px; top:28px; color:color-mix(in srgb, var(--irt-theme) 80%, #17213d); font-size:11px; font-weight:800; z-index:2; }
+      @media (max-width: 1120px) { .irt-hero { min-height:365px; } .irt-bottom { height:84px; } }
+    "))),
 ####################################################################################
 
 #### POP-UPS ####
@@ -217,7 +355,7 @@ sidebarLayout(
     ################################################## PANEL 1 HOME #########################################
 
     conditionalPanel(condition = "input.panel==0",
-                     shiny::img(src = "img/rsp4.png", width = "97%"),
+                     irtInfoCard("sidebar-mini"),
 
                      tags$head(
                        tags$script(HTML(js))
@@ -264,7 +402,7 @@ sidebarLayout(
 
     conditionalPanel(
       condition = "input.panel==1",
-      shiny::img(src = "img/rsp4.png", width = "97%"),
+      irtInfoCard("sidebar-mini"),
       # imageOutput("image1", width = "75%", height = "100px", inline = TRUE),
       ###################################################################
       # imageOutput("image2",width = "15%", height = "50px", inline = TRUE),
@@ -322,7 +460,7 @@ sidebarLayout(
 
     conditionalPanel(
       condition = "input.panel==2",
-      shiny::img(src = "img/rsp4.png", width = "97%"),
+      irtInfoCard("sidebar-mini"),
 
       ###################################################################
       # imageOutput("image3",width = "15%", height = "50px", inline = TRUE),
@@ -440,7 +578,7 @@ sidebarLayout(
     conditionalPanel(
       condition = "input.panel==4",
 
-      shiny::img(src = "img/rsp4.png", width = "97%"),
+      irtInfoCard("sidebar-mini"),
 
       ###################################################################
       # imageOutput("image5",width = "15%", height = "50px", inline = TRUE),
@@ -624,7 +762,7 @@ sidebarLayout(
 
     conditionalPanel(
       condition = "input.panel==5",
-      shiny::img(src = "img/rsp4.png", width = "97%"),
+      irtInfoCard("sidebar-mini"),
 
       ###################################################################
       #imageOutput("image6",width = "15%", height = "50px", inline = TRUE),
@@ -691,7 +829,7 @@ sidebarLayout(
 
         fluidRow(column(
           12, align = "center",
-          shiny::img(src = "img/rsp4.png", width = "97%"),
+          irtInfoCard("hero"),
 
           ###################################################################
           #
